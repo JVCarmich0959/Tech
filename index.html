@@ -284,7 +284,7 @@
   </style>
 </head>
 <body>
-  <canvas id="bubbles" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0;"></canvas>
+  <canvas id="bubbles" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:auto; z-index:0; cursor:pointer;"></canvas>
   <main class="page" role="main" style="position:relative; z-index:1;">
     <div style="text-align:center; margin-bottom:20px;">
       <h1 style="font-size: clamp(48px, 7vw, 80px); font-weight:900; margin:0; background:linear-gradient(135deg,#FF9A9E,#FAD0C4,#FFD1FF); -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow: 0 0 40px rgba(255,154,158,0.3);">
@@ -706,19 +706,19 @@
     const canvas = document.getElementById('bubbles');
     const ctx = canvas.getContext('2d');
     canvas.style.touchAction = 'none';
-
+    
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-
+    
     class Bubble {
       constructor() {
         this.reset();
       }
-
+      
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = canvas.height + Math.random() * 100;
@@ -730,13 +730,13 @@
         this.popping = false;
         this.popFrame = 0;
       }
-
+      
       containsPoint(x, y) {
         const dx = x - this.x;
         const dy = y - this.y;
         return Math.sqrt(dx * dx + dy * dy) <= this.radius;
       }
-
+      
       pop() {
         if (this.popping) {
           return;
@@ -744,7 +744,7 @@
         this.popping = true;
         this.popFrame = 0;
       }
-
+      
       update() {
         if (this.popping) {
           this.popFrame += 1;
@@ -753,31 +753,30 @@
           }
           return;
         }
-
         this.y -= this.speed;
         this.wobble += this.wobbleSpeed;
         this.x += Math.sin(this.wobble) * 0.5;
-
+        
         if (this.y + this.radius < 0) {
           this.reset();
         }
       }
-
+      
       draw() {
         const popScale = this.popping ? 1 + this.popFrame * 0.12 : 1;
         const drawRadius = this.radius * popScale;
         const alphaScale = this.popping ? Math.max(0, 1 - this.popFrame / 12) : 1;
-
+        
         ctx.save();
         ctx.globalAlpha = alphaScale;
         ctx.beginPath();
         ctx.arc(this.x, this.y, drawRadius, 0, Math.PI * 2);
         const gradient = ctx.createRadialGradient(
-          this.x - drawRadius * 0.3,
-          this.y - drawRadius * 0.3,
-          0,
-          this.x,
-          this.y,
+          this.x - drawRadius * 0.3, 
+          this.y - drawRadius * 0.3, 
+          0, 
+          this.x, 
+          this.y, 
           drawRadius
         );
         gradient.addColorStop(0, `rgba(255, 255, 255, ${this.opacity * 1.5})`);
@@ -786,16 +785,16 @@
         gradient.addColorStop(1, `rgba(143, 166, 181, ${this.opacity * 0.4})`);
         ctx.fillStyle = gradient;
         ctx.fill();
-
+        
         ctx.strokeStyle = `rgba(143, 166, 181, ${this.opacity * 1.2})`;
         ctx.lineWidth = this.popping ? 2 : 3;
         ctx.stroke();
         ctx.restore();
       }
     }
-
+    
     const bubbles = Array.from({ length: 20 }, () => new Bubble());
-
+    
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       bubbles.forEach((bubble) => {
@@ -805,14 +804,14 @@
       requestAnimationFrame(animate);
     }
     animate();
-
+    
     function handlePopEvent(event) {
       const rect = canvas.getBoundingClientRect();
       const scaleX = canvas.width / rect.width;
       const scaleY = canvas.height / rect.height;
       const x = (event.clientX - rect.left) * scaleX;
       const y = (event.clientY - rect.top) * scaleY;
-
+      
       for (let i = bubbles.length - 1; i >= 0; i -= 1) {
         const bubble = bubbles[i];
         if (!bubble.popping && bubble.containsPoint(x, y)) {
@@ -821,7 +820,7 @@
         }
       }
     }
-
+    
     canvas.addEventListener('pointerdown', handlePopEvent);
   </script>
   
