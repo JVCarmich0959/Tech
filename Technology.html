@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tech Class – Cozy Landing Page</title>
+  <style>
+    :root{
+      --sage:#CDE3D0; --cream:#FFF9F0; --sky:#DDEAF6; --lilac:#DCCFE7; --ink:#253038; --soft:#F3F3F3; --accent:#8FA6B5;
+    }
+    html{height:100%;}
+    body{
+      margin:0; font-family:"Poppins", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color:var(--ink);
+      background: linear-gradient(120deg, var(--cream), var(--sky));
+      background-size: 200% 200%;
+      animation: bgGlow 20s ease infinite;
+      min-height:100vh;
+      box-sizing:border-box;
+      padding:32px 18px;
+      display:flex; align-items:flex-start; justify-content:center;
+      overflow-y:auto;
+    }
+    @media (max-width: 600px){
+      body{padding:24px 12px;}
+    }
+    @keyframes bgGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+      50% { background-position: 100% 50%; }
+    }
+    .page{ 
+      width:min(1100px, 92vw); 
+      background:rgba(255,255,255,0.8); 
+      backdrop-filter: blur(10px);
+      border-radius:32px; 
+      box-shadow: 0 25px 70px rgba(0,0,0,.1), 0 0 0 1px rgba(255,255,255,0.6) inset; 
+      padding:32px 32px 24px;
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .header{display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;}
+    .title{
+      font-weight:800; font-size: clamp(28px, 4vw, 42px);
+      padding:10px 16px; border-radius:18px; background:linear-gradient(90deg,var(--sage),var(--lilac));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow: 0 0 30px rgba(205,227,208,0.3);
+    }
+    .subtitle{font-size:14px; opacity:.8; margin-top:-10px}
+
+    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; margin-top:14px;}
+    @media (max-width: 900px){ .grid{grid-template-columns:1fr;}}
+
+    .card{
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), var(--soft)); 
+      border:1px solid rgba(255,255,255,0.8); 
+      border-radius:22px; 
+      padding:20px; 
+      box-shadow:0 12px 35px rgba(0,0,0,.08);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow:0 18px 50px rgba(0,0,0,.12);
+    }
+    .card h2{margin:0 0 12px 0; font-size: clamp(18px, 2.2vw, 22px)}
+    .dots{letter-spacing:6px; opacity:.4; animation: pulse 3s ease infinite;}
+    @keyframes pulse {
+      0%, 100% { opacity: .4; }
+      50% { opacity: .2; }
+    }
+
+    /* Routine Steps */
+    .steps{display:grid; grid-template-columns: repeat(5, 1fr); gap:10px;}
+    @media (max-width: 900px){ .steps{grid-template-columns: 1fr;} }
+    .step{
+      background: var(--cream); 
+      border:2px dashed var(--accent); 
+      border-radius:16px; 
+      padding:12px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .step::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .step:hover {
+      transform: translateY(-3px) scale(1.02);
+      background: linear-gradient(135deg, var(--cream), #FFFBF0);
+      box-shadow: 0 8px 20px rgba(143,166,181,0.2);
+      border-color: var(--lilac);
+    }
+    .step:hover::before {
+      opacity: 1;
+    }
+    .step b{display:block; margin-bottom:6px}
+
+    /* Adventure */
+    .adventure {
+      list-style: none;
+      padding: 0;
+    }
+    .adventure li{
+      margin:.4rem 0;
+      padding: 6px 10px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    .adventure li:hover {
+      background: rgba(205,227,208,0.3);
+      transform: translateX(6px);
+    }
+
+    /* Timer */
+    .timer{display:grid; grid-template-columns: 1fr; gap:8px}
+    .timer-display{display:flex; align-items:baseline; gap:12px}
+    .phase{
+      font-weight:700; 
+      padding:8px 16px; 
+      border-radius:999px; 
+      background:var(--sage);
+      box-shadow: 0 4px 12px rgba(205,227,208,0.4);
+      animation: gentleBounce 3s ease infinite;
+    }
+    @keyframes gentleBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .clock{
+      font-variant-numeric: tabular-nums; 
+      font-size: clamp(34px, 6vw, 60px); 
+      font-weight:800; 
+      letter-spacing:1px;
+      background: linear-gradient(135deg, var(--lilac), var(--sage));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .progress{
+      height:16px; 
+      background:#e9eef2; 
+      border-radius:999px; 
+      overflow:hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06) inset;
+    }
+    .bar{
+      height:100%; 
+      width:0%; 
+      background:linear-gradient(90deg, var(--lilac), var(--sage)); 
+      background-size: 200% 100%;
+      transition:width .2s ease;
+      animation: shimmer 3s ease infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .controls{display:flex; gap:8px; flex-wrap:wrap}
+    .btn{
+      border:0; 
+      padding:11px 16px; 
+      border-radius:14px; 
+      background:var(--accent); 
+      color:#fff; 
+      font-weight:700; 
+      cursor:pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(143,166,181,0.3);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(143,166,181,0.4);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+    .btn.ghost{
+      background:rgba(255,255,255,0.7); 
+      color:var(--ink); 
+      border:2px solid var(--accent);
+    }
+
+    .phases{display:grid; grid-template-columns: repeat(3,1fr); gap:10px}
+    .phase-card{
+      background:var(--sky); 
+      border-radius:16px; 
+      padding:12px; 
+      border:1px solid rgba(0,0,0,.05);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .phase-card:hover {
+      background: linear-gradient(135deg, var(--sky), #D0E5F3);
+      transform: scale(1.03);
+      box-shadow: 0 6px 18px rgba(221,234,246,0.5);
+    }
+    .phase-card h3{margin:0 0 6px 0; font-size:16px}
+    .phase-card small{opacity:.7}
+    .phase-card input {
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+    .phase-card input:focus {
+      outline: none;
+      border-color: var(--lilac);
+      box-shadow: 0 0 0 3px rgba(220,207,231,0.2);
+    }
+
+    /* Put-away checklist */
+    .checklist {
+      list-style: none;
+      padding: 0;
+      counter-reset: item;
+    }
+    .checklist li{
+      margin:.4rem 0;
+      padding: 6px 10px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      counter-increment: item;
+      position: relative;
+      padding-left: 30px;
+    }
+    .checklist li:before {
+      content: counter(item);
+      position: absolute;
+      left: 10px;
+      background: var(--lilac);
+      color: white;
+      font-weight: 700;
+      font-size: 11px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .checklist li:hover {
+      background: rgba(220,207,231,0.25);
+      transform: translateX(6px);
+    }
+
+    /* Cozy footer */
+    .footer{
+      margin-top:16px; 
+      font-size:12px; 
+      opacity:.7; 
+      display:flex; 
+      justify-content:space-between; 
+      align-items:center; 
+      gap:10px; 
+      flex-wrap:wrap;
+      padding: 12px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 16px;
+    }
+    .ascii{
+      white-space:pre; 
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    .ascii.sparkle {
+      animation: sparkle 2s ease infinite;
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bubbles" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0;"></canvas>
+  <main class="page" role="main" style="position:relative; z-index:1;">
+    <div style="text-align:center; margin-bottom:20px;">
+      <h1 style="font-size: clamp(48px, 7vw, 80px); font-weight:900; margin:0; background:linear-gradient(135deg,#FF9A9E,#FAD0C4,#FFD1FF); -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow: 0 0 40px rgba(255,154,158,0.3);">
+        ☕ Chromebook Café ☕
+      </h1>
+    </div>
+    <header class="header">
+      <div>
+        <div class="title">Welcome to Tech Class</div>
+        <div class="subtitle ascii">(✿◠‿◠) Your cozy corner to learn, play, and grow.</div>
+      </div>
+      <div class="ascii sparkle" aria-hidden="true">✿━━━━━━━━━━━━━━✿</div>
+    </header>
+
+    <section class="grid" aria-label="main layout">
+      <!-- Left Column -->
+      <div class="card">
+        <h2>🌼 Tech Startup Routine <span class="dots">· · ·</span></h2>
+        <div class="steps" aria-label="routine steps">
+          <div class="step"><b>🖥 Step 1</b> Grab YOUR Chromebook (check your number)</div>
+          <div class="step"><b>🔐 Step 2</b> Log in using your password card</div>
+          <div class="step"><b>📚 Step 3</b> Open <b>Google Classroom</b></div>
+          <div class="step"><b>🎯 Step 4</b> Click today's assignment</div>
+          <div class="step"><b>🌈 Step 5</b> Breathe in… we're ready to explore</div>
+        </div>
+      </div>
+
+      <!-- Right Column: Timer -->
+      <div class="card">
+        <h2>⏳ Class Timer</h2>
+        <div class="timer" id="timer">
+          <div class="timer-display">
+            <div class="phase" id="phaseLabel" aria-live="polite">Setup</div>
+            <div class="clock" id="clock" aria-live="polite">10:00</div>
+          </div>
+          <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+          <div class="phases" style="margin-top:6px">
+            <div class="phase-card">
+              <h3>Setup</h3>
+              <small>Chromebooks out • Log in • Open Classroom</small>
+              <div style="margin-top:6px">
+                <label>Min: <input type="number" id="setupMin" min="1" max="30" value="5" style="width:60px"></label>
+              </div>
+            </div>
+            <div class="phase-card">
+              <h3>Work</h3>
+              <small>Today's activity • Quiet voices • Kind teamwork</small>
+              <div style="margin-top:6px">
+                <label>Min: <input type="number" id="workMin" min="1" max="90" value="30" style="width:60px"></label>
+              </div>
+            </div>
+            <div class="phase-card">
+              <h3>Put Away</h3>
+              <small>Sign out • Close lid • Return & plug in</small>
+              <div style="margin-top:6px">
+                <label>Min: <input type="number" id="awayMin" min="1" max="20" value="5" style="width:60px"></label>
+              </div>
+            </div>
+          </div>
+          <div class="controls" style="margin-top:10px">
+            <button class="btn" id="startBtn">Start</button>
+            <button class="btn ghost" id="pauseBtn">Pause</button>
+            <button class="btn ghost" id="resetBtn">Reset</button>
+            <button class="btn ghost" id="nextBtn">Next Phase</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- This Week's Adventure -->
+      <div class="card">
+        <h2>🎮 This Week's Adventure</h2>
+        <div style="background:linear-gradient(135deg, rgba(255,249,240,0.6), rgba(255,245,235,0.6)); padding:16px; border-radius:18px; margin-bottom:14px; border:2px solid rgba(255,209,255,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
+          <div class="ascii" style="font-size:16px; margin-bottom:10px; color:#5D4E37;">(✿◠‿◠) Hi 2nd Graders!</div>
+          <p style="margin:8px 0; line-height:1.6;">Today we're playing together in <b style="color:#8FA6B5;">Minecraft Education</b>! We'll learn how to be safe, kind, and smart online! 🌟</p>
+        </div>
+        
+        <div style="background:linear-gradient(135deg, rgba(221,234,246,0.5), rgba(231,243,249,0.5)); padding:14px; border-radius:16px; margin-bottom:14px; border:2px solid rgba(163,191,217,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
+          <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">✨ Getting Started</h3>
+          <ol style="margin:0; padding-left:22px; line-height:1.8;">
+            <li style="margin:6px 0;">Visit: <a href="https://education.minecraft.net/en-us/get-started/download" target="_blank" style="color:#8FA6B5; font-weight:700; text-decoration:none; border-bottom:2px dotted #8FA6B5;">Minecraft Education</a> 🌐</li>
+            <li style="margin:6px 0;">Click <b style="color:#A3BFD9;">Free Trial</b> 🎁</li>
+            <li style="margin:6px 0;">Go to: Play → View Library → Lessons 📚</li>
+            <li style="margin:6px 0;">Search for <b style="color:#8FA6B5;">"Home Sweet Hmmm"</b> 🔍</li>
+          </ol>
+          <div style="margin-top:12px; padding:10px; background:rgba(255,255,255,0.6); border-radius:10px; font-size:13px;">
+            💡 <b>Quick Link:</b> <a href="https://education.minecraft.net/en-us/lessons/cybersafe-home-sweet-hmm" target="_blank" style="color:#8FA6B5; font-weight:700; text-decoration:none; border-bottom:2px dotted #8FA6B5;">Click here to go straight to the lesson!</a>
+          </div>
+        </div>
+        
+        <div style="background:linear-gradient(135deg, rgba(205,227,208,0.5), rgba(200,230,201,0.5)); padding:14px; border-radius:16px; border:2px solid rgba(205,227,208,0.5); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
+          <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">🎯 Your Cozy Quest</h3>
+          <div style="display:grid; gap:8px;">
+            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px; transition:transform 0.3s ease;">
+              <span style="font-size:20px;">🤗</span>
+              <span style="flex:1;">Find the Trusted Adult <span class="ascii" style="opacity:0.7;">(☞ﾟヮﾟ)☞</span></span>
+            </div>
+            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px; transition:transform 0.3s ease;">
+              <span style="font-size:20px;">🛡️</span>
+              <span style="flex:1;">Say NO! to the password trap!! <span class="ascii" style="opacity:0.7;">(╯°□°）╯︵ ┻━┻</span></span>
+            </div>
+            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px; transition:transform 0.3s ease;">
+              <span style="font-size:20px;">📧</span>
+              <span style="flex:1;">Catch the fake email <span class="ascii" style="opacity:0.7;">(⊙_☉)</span></span>
+            </div>
+            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px; transition:transform 0.3s ease;">
+              <span style="font-size:20px;">🌈</span>
+              <span style="flex:1;">Help make the internet safe for everyone <span class="ascii" style="opacity:0.7;">☆彡</span></span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="margin-top:16px; padding:12px; background:linear-gradient(135deg, rgba(220,207,231,0.3), rgba(255,209,255,0.2)); border-radius:14px; text-align:center;">
+          <div class="ascii" style="font-size:16px; color:#5D4E37;">(づ｡◕‿‿◕｡)づ</div>
+          <div style="margin-top:6px; font-weight:600; color:#5D4E37;">Have fun and work together! 💖</div>
+        </div>
+      </div>
+
+      <!-- Put Away Checklist -->
+      <div class="card">
+        <h2>🧺 Put-Away Checklist</h2>
+        <ol class="checklist">
+          <li>Sign out of your Chromebook account</li>
+          <li>Close the lid gently (two hands)</li>
+          <li>Return to your <b>numbered</b> slot on the cart</li>
+          <li><b>Plug in</b> the charger (light should turn on)</li>
+          <li>Push cart cords back neatly for the next class</li>
+        </ol>
+        <div class="ascii" style="margin-top:6px">( •_•)و ̑̑  Nice and tidy = cozy lab vibes.</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="ascii">✿  Wayne STEM Academy • Technology Lab • Mrs. Carmichael  ✿</div>
+      <div class="ascii">We use tech for good. ( •_•)>⌐■-■</div>
+    </footer>
+  </main>
+
+  <script>
+    const phaseOrder = ["Setup", "Work", "Put Away"];
+    const STORAGE_KEY = "tech-class-timer";
+    const defaults = [5, 30, 5];
+    const els = {
+      clock: document.getElementById("clock"),
+      bar: document.getElementById("bar"),
+      phase: document.getElementById("phaseLabel"),
+      setup: document.getElementById("setupMin"),
+      work: document.getElementById("workMin"),
+      away: document.getElementById("awayMin"),
+      start: document.getElementById("startBtn"),
+      pause: document.getElementById("pauseBtn"),
+      reset: document.getElementById("resetBtn"),
+      next: document.getElementById("nextBtn"),
+    };
+    const state = {
+      idx: 0,
+      remaining: 0,
+      duration: 0,
+      running: false,
+      lastTick: null,
+    };
+    let rafId = null;
+    let lastPersist = 0;
+    let storageUnavailable = false;
+    function clampFromInput(input, fallback){
+      const min = Number(input.min) || 1;
+      const max = Number(input.max) || 999;
+      let value = parseInt(input.value, 10);
+      if(Number.isNaN(value)){ value = fallback; }
+      value = Math.min(max, Math.max(min, value));
+      if(String(value) !== String(input.value)){ input.value = value; }
+      return value;
+    }
+    function getMinutesForIndex(index){
+      if(index === 0){ return clampFromInput(els.setup, defaults[0]); }
+      if(index === 1){ return clampFromInput(els.work, defaults[1]); }
+      return clampFromInput(els.away, defaults[2]);
+    }
+    function format(t){
+      const total = Math.max(0, Math.floor(t));
+      const m = Math.floor(total / 60);
+      const s = total % 60;
+      return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+    function render(){
+      els.clock.textContent = format(state.remaining);
+      const pct = state.duration > 0 ? 100 * (1 - state.remaining / state.duration) : 0;
+      const safePct = Math.min(100, Math.max(0, pct));
+      els.bar.style.width = `${safePct}%`;
+    }
+    function persist(force = false){
+      if(storageUnavailable){
+        return;
+      }
+      const now = performance.now();
+      if(state.running && !force && now - lastPersist < 1000){
+        return;
+      }
+      lastPersist = now;
+      const payload = {
+        idx: state.idx,
+        remaining: Math.max(0, state.remaining),
+        running: state.running,
+        durations: {
+          setup: getMinutesForIndex(0),
+          work: getMinutesForIndex(1),
+          away: getMinutesForIndex(2),
+        },
+        savedAt: Date.now(),
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      } catch (err) {
+        if(!storageUnavailable){
+          storageUnavailable = true;
+          console.warn("Unable to persist timer state", err);
+        }
+      }
+    }
+    function setPhase(index, opts = {}){
+      const clamped = Math.max(0, Math.min(phaseOrder.length - 1, index));
+      state.idx = clamped;
+      els.phase.textContent = phaseOrder[clamped];
+      const mins = getMinutesForIndex(clamped);
+      state.duration = mins * 60;
+      if(opts.keepProgress && typeof opts.remaining === "number"){
+        state.remaining = Math.min(state.duration, Math.max(0, opts.remaining));
+      } else {
+        state.remaining = state.duration;
+      }
+      state.lastTick = null;
+      render();
+      if(!opts.skipPersist){
+        persist(true);
+      }
+    }
+    function scheduleTick(){
+      if(rafId === null){
+        rafId = requestAnimationFrame(tick);
+      }
+    }
+    function stopTick(){
+      if(rafId !== null){
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    }
+    function tick(ts){
+      rafId = null;
+      if(!state.running){
+        return;
+      }
+      if(state.lastTick === null){
+        state.lastTick = ts;
+      }
+      const dt = (ts - state.lastTick) / 1000;
+      state.lastTick = ts;
+      state.remaining = Math.max(0, state.remaining - dt);
+      if(state.remaining <= 0.01){
+        const next = state.idx + 1;
+        if(next < phaseOrder.length){
+          setPhase(next, { skipPersist: true });
+          state.lastTick = ts;
+        } else {
+          state.running = false;
+          state.remaining = 0;
+          render();
+          persist(true);
+          return;
+        }
+      }
+      render();
+      persist();
+      scheduleTick();
+    }
+    function handleDurationChange(index){
+      const minutes = getMinutesForIndex(index);
+      if(state.idx === index){
+        state.duration = minutes * 60;
+        state.remaining = state.running ? Math.min(state.remaining, state.duration) : state.duration;
+        state.lastTick = null;
+        render();
+      }
+      persist(true);
+    }
+    function applySavedState(){
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if(!raw){
+          setPhase(0);
+          return;
+        }
+        const saved = JSON.parse(raw);
+        if(saved?.durations){
+          if(saved.durations.setup){ els.setup.value = saved.durations.setup; }
+          if(saved.durations.work){ els.work.value = saved.durations.work; }
+          if(saved.durations.away){ els.away.value = saved.durations.away; }
+        }
+        const savedIdx = Number.isInteger(saved?.idx) ? Math.max(0, Math.min(phaseOrder.length - 1, saved.idx)) : 0;
+        let remaining = typeof saved?.remaining === "number" ? saved.remaining : null;
+        const savedRunning = Boolean(saved?.running);
+        const savedAt = typeof saved?.savedAt === "number" ? saved.savedAt : null;
+        const durationsSec = [
+          getMinutesForIndex(0) * 60,
+          getMinutesForIndex(1) * 60,
+          getMinutesForIndex(2) * 60,
+        ];
+        let idx = savedIdx;
+        if(savedRunning && remaining !== null){
+          let elapsed = savedAt ? Math.max(0, (Date.now() - savedAt) / 1000) : 0;
+          while(elapsed > 0 && idx < phaseOrder.length){
+            if(remaining > elapsed){
+              remaining -= elapsed;
+              elapsed = 0;
+            } else {
+              elapsed -= remaining;
+              idx += 1;
+              if(idx >= phaseOrder.length){
+                remaining = 0;
+                break;
+              }
+              remaining = durationsSec[idx];
+            }
+          }
+          if(idx >= phaseOrder.length){
+            idx = phaseOrder.length - 1;
+            setPhase(idx, { keepProgress: true, remaining: 0, skipPersist: true });
+            state.running = false;
+            state.lastTick = null;
+            render();
+            persist(true);
+            return;
+          }
+          setPhase(idx, { keepProgress: true, remaining, skipPersist: true });
+          state.running = remaining > 0;
+          state.lastTick = null;
+          render();
+          persist(true);
+          if(state.running){
+            scheduleTick();
+          }
+          return;
+        }
+        if(remaining === null){
+          setPhase(idx, { skipPersist: true });
+        } else {
+          setPhase(idx, { keepProgress: true, remaining, skipPersist: true });
+        }
+        state.running = false;
+        state.lastTick = null;
+        render();
+        persist(true);
+      } catch (err) {
+        console.warn("Timer state restore failed, clearing corrupted data", err);
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+          storageUnavailable = false;
+        } catch (removeErr) {
+          console.warn("Cannot clear corrupted storage key", removeErr);
+          storageUnavailable = true;
+        }
+        setPhase(0, { skipPersist: true });
+        state.running = false;
+        state.lastTick = null;
+        render();
+      }
+    }
+    [els.setup, els.work, els.away].forEach((input, index) => {
+      input.addEventListener("change", () => handleDurationChange(index));
+    });
+    els.start.addEventListener("click", () => {
+      if(state.running){
+        return;
+      }
+      state.running = true;
+      state.lastTick = null;
+      persist(true);
+      scheduleTick();
+    });
+    els.pause.addEventListener("click", () => {
+      if(!state.running){
+        return;
+      }
+      state.running = false;
+      state.lastTick = null;
+      stopTick();
+      persist(true);
+    });
+    els.reset.addEventListener("click", () => {
+      state.running = false;
+      state.lastTick = null;
+      stopTick();
+      setPhase(0);
+    });
+    els.next.addEventListener("click", () => {
+      if(state.idx >= phaseOrder.length - 1){
+        state.running = false;
+        state.remaining = 0;
+        state.lastTick = null;
+        stopTick();
+        render();
+        persist(true);
+        return;
+      }
+      const wasRunning = state.running;
+      setPhase(state.idx + 1);
+      state.running = wasRunning;
+      state.lastTick = null;
+      if(wasRunning){
+        scheduleTick();
+      } else {
+        stopTick();
+      }
+    });
+    applySavedState();
+  </script>
+  
+  <script>
+    // Floating bubbles animation
+    const canvas = document.getElementById('bubbles');
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    class Bubble {
+      constructor() {
+        this.reset();
+      }
+      
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + Math.random() * 100;
+        this.radius = Math.random() * 40 + 20;
+        this.speed = Math.random() * 1 + 0.5;
+        this.opacity = Math.random() * 0.5 + 0.3;
+        this.wobble = Math.random() * 2;
+        this.wobbleSpeed = Math.random() * 0.02 + 0.01;
+      }
+      
+      update() {
+        this.y -= this.speed;
+        this.wobble += this.wobbleSpeed;
+        this.x += Math.sin(this.wobble) * 0.5;
+        
+        if (this.y + this.radius < 0) {
+          this.reset();
+        }
+      }
+      
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        const gradient = ctx.createRadialGradient(
+          this.x - this.radius * 0.3, 
+          this.y - this.radius * 0.3, 
+          0, 
+          this.x, 
+          this.y, 
+          this.radius
+        );
+        gradient.addColorStop(0, `rgba(255, 255, 255, ${this.opacity * 1.5})`);
+        gradient.addColorStop(0.3, `rgba(220, 207, 231, ${this.opacity * 1.2})`);
+        gradient.addColorStop(0.7, `rgba(163, 191, 217, ${this.opacity * 0.8})`);
+        gradient.addColorStop(1, `rgba(143, 166, 181, ${this.opacity * 0.4})`);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        
+        ctx.strokeStyle = `rgba(143, 166, 181, ${this.opacity * 1.2})`;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      }
+    }
+    
+    const bubbles = Array.from({ length: 20 }, () => new Bubble());
+    
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      bubbles.forEach(bubble => {
+        bubble.update();
+        bubble.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+  
+  <audio id="ambientMusic" loop style="display:none;">
+    <source src="" type="audio/mpeg">
+  </audio>
+  
+  <div id="musicToggle" style="position:fixed; bottom:20px; right:20px; z-index:1000;">
+    <button id="toggleBtn" style="background:var(--accent); color:white; border:none; padding:12px 20px; border-radius:50px; cursor:pointer; font-weight:700; box-shadow:0 4px 15px rgba(0,0,0,0.2); transition:all 0.3s ease; display:flex; align-items:center; gap:8px;">
+      <span id="musicIcon">🎵</span>
+      <span id="musicStatus">Relaxed Scene</span>
+    </button>
+    <div id="audioEmbed" style="display:none; position:absolute; bottom:60px; right:0; background:rgba(255,255,255,0.98); backdrop-filter:blur(10px); border-radius:20px; padding:16px; box-shadow:0 8px 30px rgba(0,0,0,0.2); width:600px; max-width:calc(100vw - 40px);">
+      <div style="font-weight:700; margin-bottom:12px; color:var(--ink); font-size:14px;">🎧 Relaxed Scene Audio</div>
+      <iframe src="https://audio.com/embed/audio/1836984009115079?theme=image" style="display:block; border-radius: 12px; border: none; height: 204px; width: 100%;"></iframe>
+      <a href='https://audio.com/befxtv' style="text-align: center; display: block; color: #A4ABB6; font-size: 12px; font-family: sans-serif; line-height: 16px; margin-top: 8px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@befxtv</a>
+    </div>
+  </div>
+  
+  <script>
+    const toggleBtn = document.getElementById('toggleBtn');
+    const audioEmbed = document.getElementById('audioEmbed');
+    const musicIcon = document.getElementById('musicIcon');
+    let isOpen = false;
+    
+    toggleBtn.addEventListener('click', () => {
+      if (isOpen) {
+        audioEmbed.style.display = 'none';
+        musicIcon.textContent = '🎵';
+        toggleBtn.style.background = 'var(--accent)';
+        isOpen = false;
+      } else {
+        audioEmbed.style.display = 'block';
+        musicIcon.textContent = '🎶';
+        toggleBtn.style.background = 'linear-gradient(135deg, var(--sage), var(--lilac))';
+        isOpen = true;
+      }
+    });
+    
+    // Click outside to close
+    document.addEventListener('click', (e) => {
+      if (!document.getElementById('musicToggle').contains(e.target)) {
+        audioEmbed.style.display = 'none';
+        musicIcon.textContent = '🎵';
+        toggleBtn.style.background = 'var(--accent)';
+        isOpen = false;
+      }
+    });
+  </script>
+</body>
+</html>
