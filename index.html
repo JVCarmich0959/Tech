@@ -87,6 +87,29 @@
       position: relative;
       overflow: hidden;
     }
+    .step-expandable {
+      cursor: pointer;
+    }
+    .step-expandable.expanded {
+      background: linear-gradient(135deg, #FFFBF0, #FFF5E0);
+      border-color: var(--lilac);
+    }
+    .step-brief {
+      display: inline;
+    }
+    .step-details {
+      animation: slideDown 0.3s ease;
+    }
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        max-height: 0;
+      }
+      to {
+        opacity: 1;
+        max-height: 500px;
+      }
+    }
     .step::before {
       content: '';
       position: absolute;
@@ -285,7 +308,8 @@
 </head>
 <body>
   <canvas id="bubbles" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0;"></canvas>
-  <main class="page" role="main" style="position:relative; z-index:1;">
+  <main class="page" role="main" style="position:relative; z-index:1; pointer-events:auto;">
+    <div id="bubbleClickLayer" style="display:none;"></div>
     <div style="text-align:center; margin-bottom:20px;">
       <h1 style="font-size: clamp(48px, 7vw, 80px); font-weight:900; margin:0; background:linear-gradient(135deg,#FF9A9E,#FAD0C4,#FFD1FF); -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow: 0 0 40px rgba(255,154,158,0.3);">
         ☕ Chromebook Café ☕
@@ -304,11 +328,54 @@
       <div class="card">
         <h2>🌼 Tech Startup Routine <span class="dots">· · ·</span></h2>
         <div class="steps" aria-label="routine steps">
-          <div class="step"><b>🖥 Step 1</b> Grab YOUR Chromebook (check your number)</div>
-          <div class="step"><b>🔐 Step 2</b> Log in using your password card</div>
-          <div class="step"><b>📚 Step 3</b> Open <b>Google Classroom</b></div>
-          <div class="step"><b>🎯 Step 4</b> Click today's assignment</div>
-          <div class="step"><b>🌈 Step 5</b> Breathe in… we're ready to explore</div>
+          <div class="step step-expandable" data-step="1">
+            <b>🖥 Step 1</b> 
+            <div class="step-brief">Grab YOUR Chromebook (check your number)</div>
+            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
+              <p style="margin:4px 0;"><b>🔍 Find your number:</b> Each Chromebook has a number sticker. Make sure you get YOUR Chromebook with YOUR number!</p>
+              <p style="margin:4px 0;"><b>✋ Use two hands:</b> Chromebooks are special tools - carry them carefully with both hands.</p>
+              <p style="margin:4px 0;"><b>🪑 Sit down first:</b> Find your spot, sit down, then carefully open your Chromebook.</p>
+            </div>
+          </div>
+          <div class="step step-expandable" data-step="2">
+            <b>🔐 Step 2</b> 
+            <div class="step-brief">Log in using Clever with your QR code</div>
+            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
+              <p style="margin:4px 0;"><b>🌐 Go to Clever:</b> Open your browser and go to <code style="background:rgba(143,166,181,0.2); padding:2px 6px; border-radius:4px;">clever.com/in/wayne</code></p>
+              <p style="margin:4px 0;"><b>📱 Get your QR code:</b> Find your personal QR code badge (it should be in your folder or on your desk)</p>
+              <p style="margin:4px 0;"><b>📷 Scan it:</b> Hold your QR code up to the camera on your Chromebook - it will beep when it reads it!</p>
+              <p style="margin:4px 0;"><b>✨ You're in!</b> Clever will log you in automatically - no typing needed!</p>
+              <p style="margin:4px 0;"><b>🤫 Keep it safe:</b> Your QR code is special - keep it in a safe place and don't share it!</p>
+            </div>
+          </div>
+          <div class="step step-expandable" data-step="3">
+            <b>📚 Step 3</b> 
+            <div class="step-brief">Click on your teacher's name</div>
+            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
+              <p style="margin:4px 0;"><b>👀 Look for your teacher:</b> You'll see your teacher's name on the Clever screen</p>
+              <p style="margin:4px 0;"><b>🖱️ Click their name:</b> This will take you to your class apps</p>
+              <p style="margin:4px 0;"><b>✨ Almost there!</b> Now you can see all your learning apps!</p>
+            </div>
+          </div>
+          <div class="step step-expandable" data-step="4">
+            <b>🎯 Step 4</b> 
+            <div class="step-brief">Open eSpark and select Reading</div>
+            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
+              <p style="margin:4px 0;"><b>🔍 Find eSpark:</b> Look for the colorful eSpark icon in your apps</p>
+              <p style="margin:4px 0;"><b>📖 Choose Reading:</b> Click on "Reading" when eSpark opens</p>
+              <p style="margin:4px 0;"><b>🌟 Start your Quest:</b> Your personalized reading lesson is ready for you!</p>
+              <p style="margin:4px 0;"><b>🙋 Need help?</b> Raise your hand if you're not sure what to do!</p>
+            </div>
+          </div>
+          <div class="step step-expandable" data-step="5">
+            <b>🌈 Step 5</b> 
+            <div class="step-brief">Breathe in… we're ready to learn</div>
+            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
+              <p style="margin:4px 0;"><b>😌 Take a moment:</b> You did it! You're all set up.</p>
+              <p style="margin:4px 0;"><b>📚 Ready to read:</b> Your personalized reading adventure is starting!</p>
+              <p style="margin:4px 0;"><b>💫 Remember:</b> Take your time, do your best, and have fun learning!</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -355,50 +422,48 @@
 
       <!-- This Week's Adventure -->
       <div class="card">
-        <h2>🎮 This Week's Adventure</h2>
+        <h2>📚 Today's Learning Journey</h2>
         <div style="background:linear-gradient(135deg, rgba(255,249,240,0.6), rgba(255,245,235,0.6)); padding:16px; border-radius:18px; margin-bottom:14px; border:2px solid rgba(255,209,255,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
-          <div class="ascii" style="font-size:16px; margin-bottom:10px; color:#5D4E37;">(✿◠‿◠) Hi 2nd Graders!</div>
-          <p style="margin:8px 0; line-height:1.6;">Today we're playing together in <b style="color:#8FA6B5;">Minecraft Education</b>! We'll learn how to be safe, kind, and smart online! 🌟</p>
+          <div class="ascii" style="font-size:16px; margin-bottom:10px; color:#5D4E37;">(✿◠‿◠) Hi Scholars!</div>
+          <p style="margin:8px 0; line-height:1.6;">Today we're focusing on <b style="color:#8FA6B5;">eSpark Reading</b>! eSpark has special lessons picked just for YOU based on your MAP scores. 🌟</p>
         </div>
         
         <div style="background:linear-gradient(135deg, rgba(221,234,246,0.5), rgba(231,243,249,0.5)); padding:14px; border-radius:16px; margin-bottom:14px; border:2px solid rgba(163,191,217,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
-          <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">✨ Getting Started</h3>
+          <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">✨ How to Get Started</h3>
           <ol style="margin:0; padding-left:22px; line-height:1.8;">
-            <li style="margin:6px 0;">Visit: <a href="https://education.minecraft.net/en-us/get-started/download" target="_blank" style="color:#8FA6B5; font-weight:700; text-decoration:none; border-bottom:2px dotted #8FA6B5;">Minecraft Education</a> 🌐</li>
-            <li style="margin:6px 0;">Click <b style="color:#A3BFD9;">Free Trial</b> 🎁</li>
-            <li style="margin:6px 0;">Go to: Play → View Library → Lessons 📚</li>
-            <li style="margin:6px 0;">Search for <b style="color:#8FA6B5;">"Home Sweet Hmmm"</b> 🔍</li>
+            <li style="margin:6px 0;">Log in to <b style="color:#8FA6B5;">Clever</b> using your QR code 📱</li>
+            <li style="margin:6px 0;">Click on <b style="color:#A3BFD9;">your teacher's name</b> 👨‍🏫👩‍🏫</li>
+            <li style="margin:6px 0;">Open the <b style="color:#8FA6B5;">eSpark</b> app 🎯</li>
+            <li style="margin:6px 0;">Select <b style="color:#A3BFD9;">Reading</b> 📖</li>
+            <li style="margin:6px 0;">Complete your Reading Quest! 🌟</li>
           </ol>
           <div style="margin-top:12px; padding:10px; background:rgba(255,255,255,0.6); border-radius:10px; font-size:13px;">
-            💡 <b>Quick Link:</b> <a href="https://education.minecraft.net/en-us/lessons/cybersafe-home-sweet-hmm" target="_blank" style="color:#8FA6B5; font-weight:700; text-decoration:none; border-bottom:2px dotted #8FA6B5;">Click here to go straight to the lesson!</a>
+            💡 <b>Remember:</b> eSpark lessons are made just for you based on what you need to practice!
           </div>
         </div>
         
         <div style="background:linear-gradient(135deg, rgba(205,227,208,0.5), rgba(200,230,201,0.5)); padding:14px; border-radius:16px; border:2px solid rgba(205,227,208,0.5); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
-          <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">🎯 Your Cozy Quest</h3>
-          <div style="display:grid; gap:8px;">
-            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px; transition:transform 0.3s ease;">
-              <span style="font-size:20px;">🤗</span>
-              <span style="flex:1;">Find the Trusted Adult <span class="ascii" style="opacity:0.7;">(☞ﾟヮﾟ)☞</span></span>
+          <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">🎯 After eSpark: Learning.com</h3>
+          <p style="margin:8px 0; line-height:1.6;">After you finish eSpark, move on to your <b style="color:#8FA6B5;">Learning.com</b> lesson to practice technology skills! 💻</p>
+          <div style="display:grid; gap:8px; margin-top:10px;">
+            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
+              <span style="font-size:20px;">📚</span>
+              <span style="flex:1;">Focus on your reading first</span>
             </div>
-            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px; transition:transform 0.3s ease;">
-              <span style="font-size:20px;">🛡️</span>
-              <span style="flex:1;">Say NO! to the password trap!! <span class="ascii" style="opacity:0.7;">(╯°□°）╯︵ ┻━┻</span></span>
+            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
+              <span style="font-size:20px;">⏱️</span>
+              <span style="flex:1;">Take your time - learning is not a race</span>
             </div>
-            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px; transition:transform 0.3s ease;">
-              <span style="font-size:20px;">📧</span>
-              <span style="flex:1;">Catch the fake email <span class="ascii" style="opacity:0.7;">(⊙_☉)</span></span>
-            </div>
-            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px; transition:transform 0.3s ease;">
-              <span style="font-size:20px;">🌈</span>
-              <span style="flex:1;">Help make the internet safe for everyone <span class="ascii" style="opacity:0.7;">☆彡</span></span>
+            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
+              <span style="font-size:20px;">🙋</span>
+              <span style="flex:1;">Raise your hand if you need help</span>
             </div>
           </div>
         </div>
         
         <div style="margin-top:16px; padding:12px; background:linear-gradient(135deg, rgba(220,207,231,0.3), rgba(255,209,255,0.2)); border-radius:14px; text-align:center;">
           <div class="ascii" style="font-size:16px; color:#5D4E37;">(づ｡◕‿‿◕｡)づ</div>
-          <div style="margin-top:6px; font-weight:600; color:#5D4E37;">Have fun and work together! 💖</div>
+          <div style="margin-top:6px; font-weight:600; color:#5D4E37;">You've got this! Every lesson makes you smarter! 💖</div>
         </div>
       </div>
 
@@ -699,6 +764,27 @@
       }
     });
     applySavedState();
+    
+    // Expandable step details
+    document.querySelectorAll('.step-expandable').forEach(step => {
+      step.addEventListener('click', function(e) {
+        // Don't expand if clicking on a link or button inside
+        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+          return;
+        }
+        
+        const details = this.querySelector('.step-details');
+        const isExpanded = this.classList.contains('expanded');
+        
+        if (isExpanded) {
+          details.style.display = 'none';
+          this.classList.remove('expanded');
+        } else {
+          details.style.display = 'block';
+          this.classList.add('expanded');
+        }
+      });
+    });
   </script>
   
   <script>
@@ -805,23 +891,37 @@
     }
     animate();
     
+    const bubbleClickLayer = document.getElementById('bubbleClickLayer');
+    
     function handlePopEvent(event) {
       const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      const x = (event.clientX - rect.left) * scaleX;
-      const y = (event.clientY - rect.top) * scaleY;
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
       
+      let hitBubble = false;
       for (let i = bubbles.length - 1; i >= 0; i -= 1) {
         const bubble = bubbles[i];
         if (!bubble.popping && bubble.containsPoint(x, y)) {
           bubble.pop();
+          hitBubble = true;
+          event.stopPropagation();
+          event.preventDefault();
           break;
+        }
+      }
+      
+      // If no bubble was hit, let the click pass through to content below
+      if (!hitBubble) {
+        bubbleClickLayer.style.pointerEvents = 'none';
+        const elementBelow = document.elementFromPoint(event.clientX, event.clientY);
+        bubbleClickLayer.style.pointerEvents = 'auto';
+        if (elementBelow) {
+          elementBelow.click();
         }
       }
     }
     
-    canvas.addEventListener('pointerdown', handlePopEvent);
+    bubbleClickLayer.addEventListener('pointerdown', handlePopEvent);
   </script>
   
   <audio id="ambientMusic" loop style="display:none;">
