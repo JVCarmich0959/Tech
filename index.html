@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tech Class – Cozy Landing Page</title>
+  <title>Fun Friday – PBS KIDS Lab</title>
   <style>
     :root{
-      --sage:#CDE3D0; --cream:#FFF9F0; --sky:#DDEAF6; --lilac:#DCCFE7; --ink:#253038; --soft:#F3F3F3; --accent:#8FA6B5;
+      --sage:#CDE3D0; --cream:#FFF9F0; --sky:#DDEAF6; --lilac:#DCCFE7; --ink:#253038; --soft:#F3F3F3; --accent:#8FA6B5; --alert:#FCD5CE;
     }
     html{height:100%;}
     body{
@@ -28,11 +28,10 @@
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
-      50% { background-position: 100% 50%; }
-    }
+
     .page{ 
       width:min(1100px, 92vw); 
-      background:rgba(255,255,255,0.8); 
+      background:rgba(255,255,255,0.86); 
       backdrop-filter: blur(10px);
       border-radius:32px; 
       box-shadow: 0 25px 70px rgba(0,0,0,.1), 0 0 0 1px rgba(255,255,255,0.6) inset; 
@@ -56,8 +55,8 @@
     @media (max-width: 900px){ .grid{grid-template-columns:1fr;}}
 
     .card{
-      background: linear-gradient(135deg, rgba(255,255,255,0.95), var(--soft)); 
-      border:1px solid rgba(255,255,255,0.8); 
+      background: linear-gradient(135deg, rgba(255,255,255,0.96), var(--soft)); 
+      border:1px solid rgba(255,255,255,0.9); 
       border-radius:22px; 
       padding:20px; 
       box-shadow:0 12px 35px rgba(0,0,0,.08);
@@ -129,22 +128,6 @@
       opacity: 1;
     }
     .step b{display:block; margin-bottom:6px}
-
-    /* Adventure */
-    .adventure {
-      list-style: none;
-      padding: 0;
-    }
-    .adventure li{
-      margin:.4rem 0;
-      padding: 6px 10px;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-    }
-    .adventure li:hover {
-      background: rgba(205,227,208,0.3);
-      transform: translateX(6px);
-    }
 
     /* Timer */
     .timer{display:grid; grid-template-columns: 1fr; gap:8px}
@@ -283,14 +266,14 @@
     .footer{
       margin-top:16px; 
       font-size:12px; 
-      opacity:.7; 
+      opacity:.85; 
       display:flex; 
       justify-content:space-between; 
       align-items:center; 
       gap:10px; 
       flex-wrap:wrap;
       padding: 12px;
-      background: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.7);
       border-radius: 16px;
     }
     .ascii{
@@ -304,6 +287,38 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0.6; }
     }
+
+    .guardian-banner{
+      margin-top:14px;
+      padding:10px 14px;
+      border-radius:18px;
+      background:linear-gradient(90deg, var(--alert), #FFE5D9);
+      border:1px solid rgba(0,0,0,0.03);
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:13px;
+      line-height:1.5;
+    }
+    .guardian-banner strong{
+      font-weight:800;
+    }
+
+    .rules-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+      gap:10px;
+      margin-top:10px;
+    }
+    .rule-pill{
+      background:rgba(255,255,255,0.7);
+      border-radius:14px;
+      padding:10px 12px;
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+      font-size:13px;
+    }
   </style>
 </head>
 <body>
@@ -311,77 +326,89 @@
   <main class="page" role="main" style="position:relative; z-index:1; pointer-events:auto;">
     <div id="bubbleClickLayer" style="display:none;"></div>
     <div style="text-align:center; margin-bottom:20px;">
-      <h1 style="font-size: clamp(48px, 7vw, 80px); font-weight:900; margin:0; background:linear-gradient(135deg,#FF9A9E,#FAD0C4,#FFD1FF); -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow: 0 0 40px rgba(255,154,158,0.3);">
-        ☕ Chromebook Café ☕
+      <h1 style="font-size: clamp(40px, 7vw, 72px); font-weight:900; margin:0; background:linear-gradient(135deg,#FFCF71,#F5AF19,#FFD1FF); -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow: 0 0 40px rgba(255,207,113,0.4);">
+        🎉 PBS KIDS Fun Friday 🎉
       </h1>
+      <p style="margin:8px 0 0; font-size:14px; opacity:.85;">Learning through games, stories, and kind choices. 💻✨</p>
     </div>
+
     <header class="header">
       <div>
-        <div class="title">Welcome to Tech Class</div>
-        <div class="subtitle ascii">(✿◠‿◠) Your cozy corner to learn, play, and grow.</div>
+        <div class="title">Welcome to Tech Class – Fun Friday</div>
+        <div class="subtitle ascii">(✿◠‿◠) Today we play and learn on <b>PBS KIDS</b> only.</div>
       </div>
       <div class="ascii sparkle" aria-hidden="true">✿━━━━━━━━━━━━━━✿</div>
     </header>
 
+    <!-- GoGuardian Banner -->
+    <div class="guardian-banner" role="status">
+      <span style="font-size:18px;">👀</span>
+      <div>
+        <strong>Reminder:</strong> This class is being monitored with <b>GoGuardian</b>.<br/>
+        Your teacher can see your <b>screen</b>, <b>tabs</b>, and <b>searches</b> the whole time. PBS KIDS only.
+      </div>
+    </div>
+
     <section class="grid" aria-label="main layout">
       <!-- Left Column -->
       <div class="card">
-        <h2>🌼 Tech Startup Routine <span class="dots">· · ·</span></h2>
+        <h2>🌈 Fun Friday Startup Routine <span class="dots">· · ·</span></h2>
         <div class="steps" aria-label="routine steps">
           <div class="step step-expandable" data-step="1">
-            <b>🖥 Step 1</b> 
-            <div class="step-brief">Grab YOUR Chromebook (check your number)</div>
+            <b>🖥 Step 1 – Get Ready</b> 
+            <div class="step-brief">Grab YOUR Chromebook and find your seat</div>
             <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
-              <p style="margin:4px 0;"><b>🔍 Find your number:</b> Each Chromebook has a number sticker. Make sure you get YOUR Chromebook with YOUR number!</p>
-              <p style="margin:4px 0;"><b>✋ Use two hands:</b> Chromebooks are special tools - carry them carefully with both hands.</p>
-              <p style="margin:4px 0;"><b>🪑 Sit down first:</b> Find your spot, sit down, then carefully open your Chromebook.</p>
+              <p><b>🔢 Check the number:</b> Take only the Chromebook that matches your number.</p>
+              <p><b>✋ Two hands:</b> Carry it carefully with two hands, screen closed.</p>
+              <p><b>🪑 Sit first:</b> Sit in your assigned spot before you open it.</p>
             </div>
           </div>
+
           <div class="step step-expandable" data-step="2">
-            <b>🔐 Step 2</b> 
-            <div class="step-brief">Log in using Clever with your QR code</div>
+            <b>🌐 Step 2 – Go to PBS KIDS</b> 
+            <div class="step-brief">Wait for your teacher, then open PBS KIDS</div>
             <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
-              <p style="margin:4px 0;"><b>🌐 Go to Clever:</b> Open your browser and go to <code style="background:rgba(143,166,181,0.2); padding:2px 6px; border-radius:4px;">clever.com/in/wayne</code></p>
-              <p style="margin:4px 0;"><b>📱 Get your QR code:</b> Find your personal QR code badge (it should be in your folder or on your desk)</p>
-              <p style="margin:4px 0;"><b>📷 Scan it:</b> Hold your QR code up to the camera on your Chromebook - it will beep when it reads it!</p>
-              <p style="margin:4px 0;"><b>✨ You're in!</b> Clever will log you in automatically - no typing needed!</p>
-              <p style="margin:4px 0;"><b>🤫 Keep it safe:</b> Your QR code is special - keep it in a safe place and don't share it!</p>
+              <p><b>⏳ Wait for directions:</b> Do not open any tabs until your teacher says “Go.”</p>
+              <p><b>🌐 Visit:</b> Type or click the link for <code style="background:rgba(143,166,181,0.2); padding:2px 6px; border-radius:4px;">pbskids.org</code> (or use the pinned link, if shown).</p>
+              <p><b>🚫 No searching:</b> Do <i>not</i> search the internet or open other websites.</p>
             </div>
           </div>
+
           <div class="step step-expandable" data-step="3">
-            <b>📚 Step 3</b> 
-            <div class="step-brief">Click on your teacher's name</div>
+            <b>🎮 Step 3 – Pick Your Game or Show</b> 
+            <div class="step-brief">Choose a PBS KIDS activity your teacher allows</div>
             <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
-              <p style="margin:4px 0;"><b>👀 Look for your teacher:</b> You'll see your teacher's name on the Clever screen</p>
-              <p style="margin:4px 0;"><b>🖱️ Click their name:</b> This will take you to your class apps</p>
-              <p style="margin:4px 0;"><b>✨ Almost there!</b> Now you can see all your learning apps!</p>
+              <p><b>✅ Stay in bounds:</b> Only choose games or videos your teacher has said are okay.</p>
+              <p><b>📚 Learning focus:</b> Look for games that practice <b>reading</b>, <b>math</b>, <b>problem-solving</b>, or <b>kindness</b>.</p>
+              <p><b>🙋 Ask first:</b> If you’re not sure a game is allowed, raise your hand and ask.</p>
             </div>
           </div>
+
           <div class="step step-expandable" data-step="4">
-            <b>🎯 Step 4</b> 
-            <div class="step-brief">Open eSpark and select Reading</div>
+            <b>🤫 Step 4 – Play with Classroom Expectations</b> 
+            <div class="step-brief">Quiet voices • Eyes on your own screen • Kind choices</div>
             <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
-              <p style="margin:4px 0;"><b>🔍 Find eSpark:</b> Look for the colorful eSpark icon in your apps</p>
-              <p style="margin:4px 0;"><b>📖 Choose Reading:</b> Click on "Reading" when eSpark opens</p>
-              <p style="margin:4px 0;"><b>🌟 Start your Quest:</b> Your personalized reading lesson is ready for you!</p>
-              <p style="margin:4px 0;"><b>🙋 Need help?</b> Raise your hand if you're not sure what to do!</p>
+              <p><b>🔊 Volume check:</b> Headphones on, volume at a respectful level.</p>
+              <p><b>🧠 Focus:</b> Keep your eyes on your own game—no wandering around or touching others’ devices.</p>
+              <p><b>💬 Friendly talk:</b> If you speak, use a whisper voice and kind words.</p>
             </div>
           </div>
+
           <div class="step step-expandable" data-step="5">
-            <b>🌈 Step 5</b> 
-            <div class="step-brief">Breathe in… we're ready to learn</div>
+            <b>🧘 Step 5 – Pause & Breathe</b> 
+            <div class="step-brief">Take a breath and remember GoGuardian is watching</div>
             <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
-              <p style="margin:4px 0;"><b>😌 Take a moment:</b> You did it! You're all set up.</p>
-              <p style="margin:4px 0;"><b>📚 Ready to read:</b> Your personalized reading adventure is starting!</p>
-              <p style="margin:4px 0;"><b>💫 Remember:</b> Take your time, do your best, and have fun learning!</p>
+              <p><b>😌 Pause:</b> Take a deep breath in… and out. You are ready to make good choices.</p>
+              <p><b>👀 On-screen choices:</b> Anything you click, type, or open can be seen by your teacher.</p>
+              <p><b>🌟 Goal:</b> Have fun, stay safe, and show you can handle Fun Friday responsibly.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Right Column: Timer -->
+      <!-- Right Column: Timer + Rules -->
       <div class="card">
-        <h2>⏳ Class Timer</h2>
+        <h2>⏳ Fun Friday Timer</h2>
         <div class="timer" id="timer">
           <div class="timer-display">
             <div class="phase" id="phaseLabel" aria-live="polite">Setup</div>
@@ -391,20 +418,20 @@
           <div class="phases" style="margin-top:6px">
             <div class="phase-card">
               <h3>Setup</h3>
-              <small>Chromebooks out • Log in • Open Classroom</small>
+              <small>Chromebooks out • Go to PBS KIDS</small>
               <div style="margin-top:6px">
                 <label>Min: <input type="number" id="setupMin" min="1" max="30" value="5" style="width:60px"></label>
               </div>
             </div>
             <div class="phase-card">
-              <h3>Work</h3>
-              <small>Today's activity • Quiet voices • Kind teamwork</small>
+              <h3>PBS KIDS Play</h3>
+              <small>Games & shows • Quiet voices • Good choices</small>
               <div style="margin-top:6px">
                 <label>Min: <input type="number" id="workMin" min="1" max="90" value="30" style="width:60px"></label>
               </div>
             </div>
             <div class="phase-card">
-              <h3>Put Away</h3>
+              <h3>Clean Up</h3>
               <small>Sign out • Close lid • Return & plug in</small>
               <div style="margin-top:6px">
                 <label>Min: <input type="number" id="awayMin" min="1" max="20" value="5" style="width:60px"></label>
@@ -418,77 +445,102 @@
             <button class="btn ghost" id="nextBtn">Next Phase</button>
           </div>
         </div>
+
+        <div style="margin-top:14px; padding:10px 12px; border-radius:16px; background:rgba(221,234,246,0.7); font-size:13px;">
+          <strong>Fun Friday Rules (PBS KIDS Only)</strong>
+          <div class="rules-grid">
+            <div class="rule-pill">
+              <span>🧠</span>
+              <span><b>One website:</b> Stay on <b>pbskids.org</b>, no extra tabs.</span>
+            </div>
+            <div class="rule-pill">
+              <span>👀</span>
+              <span><b>GoGuardian:</b> Your teacher can see everything on your screen.</span>
+            </div>
+            <div class="rule-pill">
+              <span>🙋</span>
+              <span><b>Ask first:</b> Need to switch games or shows? Raise your hand.</span>
+            </div>
+            <div class="rule-pill">
+              <span>💻</span>
+              <span><b>Hands to self:</b> Do not touch anyone else’s Chromebook.</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- This Week's Adventure -->
+      <!-- Fun Friday Journey -->
       <div class="card">
-        <h2>📚 Today's Learning Journey</h2>
-        <div style="background:linear-gradient(135deg, rgba(255,249,240,0.6), rgba(255,245,235,0.6)); padding:16px; border-radius:18px; margin-bottom:14px; border:2px solid rgba(255,209,255,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
+        <h2>📺 Today’s PBS KIDS Journey</h2>
+        <div style="background:linear-gradient(135deg, rgba(255,249,240,0.7), rgba(255,245,235,0.7)); padding:16px; border-radius:18px; margin-bottom:14px; border:2px solid rgba(255,209,255,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
           <div class="ascii" style="font-size:16px; margin-bottom:10px; color:#5D4E37;">(✿◠‿◠) Hi Scholars!</div>
-          <p style="margin:8px 0; line-height:1.6;">Today we're focusing on <b style="color:#8FA6B5;">eSpark Reading</b>! eSpark has special lessons picked just for YOU based on your MAP scores. 🌟</p>
+          <p style="margin:8px 0; line-height:1.6;">
+            Today we are exploring <b style="color:#8FA6B5;">PBS KIDS</b> together.  
+            You’ll use games and videos to practice <b>reading</b>, <b>math</b>, <b>problem-solving</b>, and <b>kindness</b>—while still following all classroom expectations.
+          </p>
         </div>
         
-        <div style="background:linear-gradient(135deg, rgba(221,234,246,0.5), rgba(231,243,249,0.5)); padding:14px; border-radius:16px; margin-bottom:14px; border:2px solid rgba(163,191,217,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
+        <div style="background:linear-gradient(135deg, rgba(221,234,246,0.6), rgba(231,243,249,0.6)); padding:14px; border-radius:16px; margin-bottom:14px; border:2px solid rgba(163,191,217,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
           <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">✨ How to Get Started</h3>
           <ol style="margin:0; padding-left:22px; line-height:1.8;">
-            <li style="margin:6px 0;">Log in to <b style="color:#8FA6B5;">Clever</b> using your QR code 📱</li>
-            <li style="margin:6px 0;">Click on <b style="color:#A3BFD9;">your teacher's name</b> 👨‍🏫👩‍🏫</li>
-            <li style="margin:6px 0;">Open the <b style="color:#8FA6B5;">eSpark</b> app 🎯</li>
-            <li style="margin:6px 0;">Select <b style="color:#A3BFD9;">Reading</b> 📖</li>
-            <li style="margin:6px 0;">Complete your Reading Quest! 🌟</li>
+            <li style="margin:6px 0;">Wait for your teacher to say it is time to open Chromebooks.</li>
+            <li style="margin:6px 0;">Open your browser and go to <b style="color:#8FA6B5;">pbskids.org</b> (or click the link your teacher shows).</li>
+            <li style="margin:6px 0;">Choose a <b>teacher-approved</b> game or show.</li>
+            <li style="margin:6px 0;">Play with <b>quiet voices</b>, <b>kind words</b>, and <b>eyes on your own screen</b>.</li>
+            <li style="margin:6px 0;">If you need help or want to switch, <b>raise your hand</b>.</li>
           </ol>
-          <div style="margin-top:12px; padding:10px; background:rgba(255,255,255,0.6); border-radius:10px; font-size:13px;">
-            💡 <b>Remember:</b> eSpark lessons are made just for you based on what you need to practice!
+          <div style="margin-top:12px; padding:10px; background:rgba(255,255,255,0.7); border-radius:10px; font-size:13px;">
+            💡 <b>Remember:</b> If your game or video stops working, do <i>not</i> click random buttons. Pause, breathe, and ask your teacher for help.
           </div>
         </div>
         
-        <div style="background:linear-gradient(135deg, rgba(205,227,208,0.5), rgba(200,230,201,0.5)); padding:14px; border-radius:16px; border:2px solid rgba(205,227,208,0.5); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
-          <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">🎯 After eSpark: Learning.com</h3>
-          <p style="margin:8px 0; line-height:1.6;">After you finish eSpark, move on to your <b style="color:#8FA6B5;">Learning.com</b> lesson to practice technology skills! 💻</p>
-          <div style="display:grid; gap:8px; margin-top:10px;">
-            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
-              <span style="font-size:20px;">📚</span>
-              <span style="flex:1;">Focus on your reading first</span>
+        <div style="background:linear-gradient(135deg, rgba(205,227,208,0.6), rgba(200,230,201,0.6)); padding:14px; border-radius:16px; border:2px solid rgba(205,227,208,0.6); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
+          <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">🎯 Level-Up Challenges</h3>
+          <div style="display:grid; gap:8px; margin-top:4px;">
+            <div style="background:rgba(255,255,255,0.7); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
+              <span style="font-size:20px;">🧩</span>
+              <span style="flex:1;">Can you finish a game that makes you <b>think hard</b>, not just click fast?</span>
             </div>
-            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
-              <span style="font-size:20px;">⏱️</span>
-              <span style="flex:1;">Take your time - learning is not a race</span>
+            <div style="background:rgba(255,255,255,0.7); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
+              <span style="font-size:20px;">📖</span>
+              <span style="flex:1;">Can you find one activity that uses <b>reading</b> or <b>following directions</b> carefully?</span>
             </div>
-            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
-              <span style="font-size:20px;">🙋</span>
-              <span style="flex:1;">Raise your hand if you need help</span>
+            <div style="background:rgba(255,255,255,0.7); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
+              <span style="font-size:20px;">😊</span>
+              <span style="flex:1;">Can you show Fun Friday self-control so we can keep doing this again?</span>
             </div>
           </div>
         </div>
         
-        <div style="margin-top:16px; padding:12px; background:linear-gradient(135deg, rgba(220,207,231,0.3), rgba(255,209,255,0.2)); border-radius:14px; text-align:center;">
+        <div style="margin-top:16px; padding:12px; background:linear-gradient(135deg, rgba(220,207,231,0.35), rgba(255,209,255,0.25)); border-radius:14px; text-align:center;">
           <div class="ascii" style="font-size:16px; color:#5D4E37;">(づ｡◕‿‿◕｡)づ</div>
-          <div style="margin-top:6px; font-weight:600; color:#5D4E37;">You've got this! Every lesson makes you smarter! 💖</div>
+          <div style="margin-top:6px; font-weight:600; color:#5D4E37;">Have fun, stay on PBS KIDS, and let GoGuardian see your best choices.</div>
         </div>
       </div>
 
       <!-- Put Away Checklist -->
       <div class="card">
-        <h2>🧺 Put-Away Checklist</h2>
+        <h2>🧺 End of Class – Put-Away Checklist</h2>
         <ol class="checklist">
-          <li>Sign out of your Chromebook account</li>
-          <li>Close the lid gently (two hands)</li>
-          <li>Return to your <b>numbered</b> slot on the cart</li>
-          <li><b>Plug in</b> the charger (light should turn on)</li>
-          <li>Push cart cords back neatly for the next class</li>
+          <li>Stop your game or video when the timer or teacher says time is up.</li>
+          <li>Close the PBS KIDS tab and sign out if your teacher asks.</li>
+          <li>Close the Chromebook lid gently (two hands).</li>
+          <li>Return your Chromebook to your <b>numbered</b> slot on the cart.</li>
+          <li><b>Plug in</b> the charger and make sure the charging light turns on.</li>
+          <li>Push cords back neatly so they are ready for the next class.</li>
         </ol>
-        <div class="ascii" style="margin-top:6px">( •_•)و ̑̑  Nice and tidy = cozy lab vibes.</div>
+        <div class="ascii" style="margin-top:6px">( •_•)و ̑̑  Neat cart = more Fun Fridays later.</div>
       </div>
     </section>
 
     <footer class="footer">
       <div class="ascii">✿  Wayne STEM Academy • Technology Lab • Mrs. Carmichael  ✿</div>
-      <div class="ascii">We use tech for good. ( •_•)>⌐■-■</div>
+      <div class="ascii">GoGuardian is on. We use tech for good. ( •_•)>⌐■-■</div>
     </footer>
   </main>
 
   <script>
-    const phaseOrder = ["Setup", "Work", "Put Away"];
+    const phaseOrder = ["Setup", "PBS KIDS Play", "Clean Up"];
     const STORAGE_KEY = "tech-class-timer";
     const defaults = [5, 30, 5];
     const els = {
@@ -686,289 +738,3 @@
           state.running = remaining > 0;
           state.lastTick = null;
           render();
-          persist(true);
-          if(state.running){
-            scheduleTick();
-          }
-          return;
-        }
-        if(remaining === null){
-          setPhase(idx, { skipPersist: true });
-        } else {
-          setPhase(idx, { keepProgress: true, remaining, skipPersist: true });
-        }
-        state.running = false;
-        state.lastTick = null;
-        render();
-        persist(true);
-      } catch (err) {
-        console.warn("Timer state restore failed, clearing corrupted data", err);
-        try {
-          localStorage.removeItem(STORAGE_KEY);
-          storageUnavailable = false;
-        } catch (removeErr) {
-          console.warn("Cannot clear corrupted storage key", removeErr);
-          storageUnavailable = true;
-        }
-        setPhase(0, { skipPersist: true });
-        state.running = false;
-        state.lastTick = null;
-        render();
-      }
-    }
-    [els.setup, els.work, els.away].forEach((input, index) => {
-      input.addEventListener("change", () => handleDurationChange(index));
-    });
-    els.start.addEventListener("click", () => {
-      if(state.running){
-        return;
-      }
-      state.running = true;
-      state.lastTick = null;
-      persist(true);
-      scheduleTick();
-    });
-    els.pause.addEventListener("click", () => {
-      if(!state.running){
-        return;
-      }
-      state.running = false;
-      state.lastTick = null;
-      stopTick();
-      persist(true);
-    });
-    els.reset.addEventListener("click", () => {
-      state.running = false;
-      state.lastTick = null;
-      stopTick();
-      setPhase(0);
-    });
-    els.next.addEventListener("click", () => {
-      if(state.idx >= phaseOrder.length - 1){
-        state.running = false;
-        state.remaining = 0;
-        state.lastTick = null;
-        stopTick();
-        render();
-        persist(true);
-        return;
-      }
-      const wasRunning = state.running;
-      setPhase(state.idx + 1);
-      state.running = wasRunning;
-      state.lastTick = null;
-      if(wasRunning){
-        scheduleTick();
-      } else {
-        stopTick();
-      }
-    });
-    applySavedState();
-    
-    // Expandable step details
-    document.querySelectorAll('.step-expandable').forEach(step => {
-      step.addEventListener('click', function(e) {
-        // Don't expand if clicking on a link or button inside
-        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-          return;
-        }
-        
-        const details = this.querySelector('.step-details');
-        const isExpanded = this.classList.contains('expanded');
-        
-        if (isExpanded) {
-          details.style.display = 'none';
-          this.classList.remove('expanded');
-        } else {
-          details.style.display = 'block';
-          this.classList.add('expanded');
-        }
-      });
-    });
-  </script>
-  
-  <script>
-    // Floating bubbles animation
-    const canvas = document.getElementById('bubbles');
-    const ctx = canvas.getContext('2d');
-    canvas.style.touchAction = 'none';
-    
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    
-    class Bubble {
-      constructor() {
-        this.reset();
-      }
-      
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = canvas.height + Math.random() * 100;
-        this.radius = Math.random() * 40 + 20;
-        this.speed = Math.random() * 1 + 0.5;
-        this.opacity = Math.random() * 0.5 + 0.3;
-        this.wobble = Math.random() * 2;
-        this.wobbleSpeed = Math.random() * 0.02 + 0.01;
-        this.popping = false;
-        this.popFrame = 0;
-      }
-      
-      containsPoint(x, y) {
-        const dx = x - this.x;
-        const dy = y - this.y;
-        return Math.sqrt(dx * dx + dy * dy) <= this.radius;
-      }
-      
-      pop() {
-        if (this.popping) {
-          return;
-        }
-        this.popping = true;
-        this.popFrame = 0;
-      }
-      
-      update() {
-        if (this.popping) {
-          this.popFrame += 1;
-          if (this.popFrame > 12) {
-            this.reset();
-          }
-          return;
-        }
-        this.y -= this.speed;
-        this.wobble += this.wobbleSpeed;
-        this.x += Math.sin(this.wobble) * 0.5;
-        
-        if (this.y + this.radius < 0) {
-          this.reset();
-        }
-      }
-      
-      draw() {
-        const popScale = this.popping ? 1 + this.popFrame * 0.12 : 1;
-        const drawRadius = this.radius * popScale;
-        const alphaScale = this.popping ? Math.max(0, 1 - this.popFrame / 12) : 1;
-        
-        ctx.save();
-        ctx.globalAlpha = alphaScale;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, drawRadius, 0, Math.PI * 2);
-        const gradient = ctx.createRadialGradient(
-          this.x - drawRadius * 0.3, 
-          this.y - drawRadius * 0.3, 
-          0, 
-          this.x, 
-          this.y, 
-          drawRadius
-        );
-        gradient.addColorStop(0, `rgba(255, 255, 255, ${this.opacity * 1.5})`);
-        gradient.addColorStop(0.3, `rgba(220, 207, 231, ${this.opacity * 1.2})`);
-        gradient.addColorStop(0.7, `rgba(163, 191, 217, ${this.opacity * 0.8})`);
-        gradient.addColorStop(1, `rgba(143, 166, 181, ${this.opacity * 0.4})`);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-        
-        ctx.strokeStyle = `rgba(143, 166, 181, ${this.opacity * 1.2})`;
-        ctx.lineWidth = this.popping ? 2 : 3;
-        ctx.stroke();
-        ctx.restore();
-      }
-    }
-    
-    const bubbles = Array.from({ length: 20 }, () => new Bubble());
-    
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      bubbles.forEach((bubble) => {
-        bubble.update();
-        bubble.draw();
-      });
-      requestAnimationFrame(animate);
-    }
-    animate();
-    
-    const bubbleClickLayer = document.getElementById('bubbleClickLayer');
-    
-    function handlePopEvent(event) {
-      const rect = canvas.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      
-      let hitBubble = false;
-      for (let i = bubbles.length - 1; i >= 0; i -= 1) {
-        const bubble = bubbles[i];
-        if (!bubble.popping && bubble.containsPoint(x, y)) {
-          bubble.pop();
-          hitBubble = true;
-          event.stopPropagation();
-          event.preventDefault();
-          break;
-        }
-      }
-      
-      // If no bubble was hit, let the click pass through to content below
-      if (!hitBubble) {
-        bubbleClickLayer.style.pointerEvents = 'none';
-        const elementBelow = document.elementFromPoint(event.clientX, event.clientY);
-        bubbleClickLayer.style.pointerEvents = 'auto';
-        if (elementBelow) {
-          elementBelow.click();
-        }
-      }
-    }
-    
-    bubbleClickLayer.addEventListener('pointerdown', handlePopEvent);
-  </script>
-  
-  <audio id="ambientMusic" loop style="display:none;">
-    <source src="" type="audio/mpeg">
-  </audio>
-  
-  <div id="musicToggle" style="position:fixed; bottom:20px; right:20px; z-index:1000;">
-    <button id="toggleBtn" style="background:var(--accent); color:white; border:none; padding:12px 20px; border-radius:50px; cursor:pointer; font-weight:700; box-shadow:0 4px 15px rgba(0,0,0,0.2); transition:all 0.3s ease; display:flex; align-items:center; gap:8px;">
-      <span id="musicIcon">🎵</span>
-      <span id="musicStatus">Relaxed Scene</span>
-    </button>
-    <div id="audioEmbed" style="display:none; position:absolute; bottom:60px; right:0; background:rgba(255,255,255,0.98); backdrop-filter:blur(10px); border-radius:20px; padding:16px; box-shadow:0 8px 30px rgba(0,0,0,0.2); width:600px; max-width:calc(100vw - 40px);">
-      <div style="font-weight:700; margin-bottom:12px; color:var(--ink); font-size:14px;">🎧 Relaxed Scene Audio</div>
-      <iframe src="https://audio.com/embed/audio/1836984009115079?theme=image" style="display:block; border-radius: 12px; border: none; height: 204px; width: 100%;"></iframe>
-      <a href='https://audio.com/befxtv' style="text-align: center; display: block; color: #A4ABB6; font-size: 12px; font-family: sans-serif; line-height: 16px; margin-top: 8px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@befxtv</a>
-    </div>
-  </div>
-  
-  <script>
-    const toggleBtn = document.getElementById('toggleBtn');
-    const audioEmbed = document.getElementById('audioEmbed');
-    const musicIcon = document.getElementById('musicIcon');
-    let isOpen = false;
-    
-    toggleBtn.addEventListener('click', () => {
-      if (isOpen) {
-        audioEmbed.style.display = 'none';
-        musicIcon.textContent = '🎵';
-        toggleBtn.style.background = 'var(--accent)';
-        isOpen = false;
-      } else {
-        audioEmbed.style.display = 'block';
-        musicIcon.textContent = '🎶';
-        toggleBtn.style.background = 'linear-gradient(135deg, var(--sage), var(--lilac))';
-        isOpen = true;
-      }
-    });
-    
-    // Click outside to close
-    document.addEventListener('click', (e) => {
-      if (!document.getElementById('musicToggle').contains(e.target)) {
-        audioEmbed.style.display = 'none';
-        musicIcon.textContent = '🎵';
-        toggleBtn.style.background = 'var(--accent)';
-        isOpen = false;
-      }
-    });
-  </script>
-</body>
-</html>
