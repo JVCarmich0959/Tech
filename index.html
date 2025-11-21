@@ -31,7 +31,7 @@
 
     .page{ 
       width:min(1100px, 92vw); 
-      background:rgba(255,255,255,0.86); 
+      background:rgba(255,255,255,0.8); 
       backdrop-filter: blur(10px);
       border-radius:32px; 
       box-shadow: 0 25px 70px rgba(0,0,0,.1), 0 0 0 1px rgba(255,255,255,0.6) inset; 
@@ -55,8 +55,8 @@
     @media (max-width: 900px){ .grid{grid-template-columns:1fr;}}
 
     .card{
-      background: linear-gradient(135deg, rgba(255,255,255,0.96), var(--soft)); 
-      border:1px solid rgba(255,255,255,0.9); 
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), var(--soft)); 
+      border:1px solid rgba(255,255,255,0.8); 
       border-radius:22px; 
       padding:20px; 
       box-shadow:0 12px 35px rgba(0,0,0,.08);
@@ -128,6 +128,22 @@
       opacity: 1;
     }
     .step b{display:block; margin-bottom:6px}
+
+    /* Adventure (not heavily used now, kept for future) */
+    .adventure {
+      list-style: none;
+      padding: 0;
+    }
+    .adventure li{
+      margin:.4rem 0;
+      padding: 6px 10px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    .adventure li:hover {
+      background: rgba(205,227,208,0.3);
+      transform: translateX(6px);
+    }
 
     /* Timer */
     .timer{display:grid; grid-template-columns: 1fr; gap:8px}
@@ -266,14 +282,14 @@
     .footer{
       margin-top:16px; 
       font-size:12px; 
-      opacity:.85; 
+      opacity:.7; 
       display:flex; 
       justify-content:space-between; 
       align-items:center; 
       gap:10px; 
       flex-wrap:wrap;
       padding: 12px;
-      background: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.5);
       border-radius: 16px;
     }
     .ascii{
@@ -322,9 +338,10 @@
   </style>
 </head>
 <body>
+  <!-- BUBBLE CANVAS (visual background) -->
   <canvas id="bubbles" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0;"></canvas>
+
   <main class="page" role="main" style="position:relative; z-index:1; pointer-events:auto;">
-    <div id="bubbleClickLayer" style="display:none;"></div>
     <div style="text-align:center; margin-bottom:20px;">
       <h1 style="font-size: clamp(40px, 7vw, 72px); font-weight:900; margin:0; background:linear-gradient(135deg,#FFCF71,#F5AF19,#FFD1FF); -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow: 0 0 40px rgba(255,207,113,0.4);">
         🎉 PBS KIDS Fun Friday 🎉
@@ -363,17 +380,15 @@
               <p><b>🪑 Sit first:</b> Sit in your assigned spot before you open it.</p>
             </div>
           </div>
-
           <div class="step step-expandable" data-step="2">
             <b>🌐 Step 2 – Go to PBS KIDS</b> 
             <div class="step-brief">Wait for your teacher, then open PBS KIDS</div>
             <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
               <p><b>⏳ Wait for directions:</b> Do not open any tabs until your teacher says “Go.”</p>
-              <p><b>🌐 Visit:</b> Type or click the link for <code style="background:rgba(143,166,181,0.2); padding:2px 6px; border-radius:4px;">pbskids.org</code> (or use the pinned link, if shown).</p>
+              <p><b>🌐 Visit:</b> Go to <code style="background:rgba(143,166,181,0.2); padding:2px 6px; border-radius:4px;">pbskids.org</code> (or click the link your teacher shows).</p>
               <p><b>🚫 No searching:</b> Do <i>not</i> search the internet or open other websites.</p>
             </div>
           </div>
-
           <div class="step step-expandable" data-step="3">
             <b>🎮 Step 3 – Pick Your Game or Show</b> 
             <div class="step-brief">Choose a PBS KIDS activity your teacher allows</div>
@@ -383,17 +398,15 @@
               <p><b>🙋 Ask first:</b> If you’re not sure a game is allowed, raise your hand and ask.</p>
             </div>
           </div>
-
           <div class="step step-expandable" data-step="4">
             <b>🤫 Step 4 – Play with Classroom Expectations</b> 
             <div class="step-brief">Quiet voices • Eyes on your own screen • Kind choices</div>
-            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
+            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:10px; border-top:2px dashed rgba(143,166,181,0.3); font-size:13px; line-height:1.5;">
               <p><b>🔊 Volume check:</b> Headphones on, volume at a respectful level.</p>
               <p><b>🧠 Focus:</b> Keep your eyes on your own game—no wandering around or touching others’ devices.</p>
               <p><b>💬 Friendly talk:</b> If you speak, use a whisper voice and kind words.</p>
             </div>
           </div>
-
           <div class="step step-expandable" data-step="5">
             <b>🧘 Step 5 – Pause & Breathe</b> 
             <div class="step-brief">Take a breath and remember GoGuardian is watching</div>
@@ -472,7 +485,7 @@
       <!-- Fun Friday Journey -->
       <div class="card">
         <h2>📺 Today’s PBS KIDS Journey</h2>
-        <div style="background:linear-gradient(135deg, rgba(255,249,240,0.7), rgba(255,245,235,0.7)); padding:16px; border-radius:18px; margin-bottom:14px; border:2px solid rgba(255,209,255,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
+        <div style="background:linear-gradient(135deg, rgba(255,249,240,0.6), rgba(255,245,235,0.6)); padding:16px; border-radius:18px; margin-bottom:14px; border:2px solid rgba(255,209,255,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
           <div class="ascii" style="font-size:16px; margin-bottom:10px; color:#5D4E37;">(✿◠‿◠) Hi Scholars!</div>
           <p style="margin:8px 0; line-height:1.6;">
             Today we are exploring <b style="color:#8FA6B5;">PBS KIDS</b> together.  
@@ -480,7 +493,7 @@
           </p>
         </div>
         
-        <div style="background:linear-gradient(135deg, rgba(221,234,246,0.6), rgba(231,243,249,0.6)); padding:14px; border-radius:16px; margin-bottom:14px; border:2px solid rgba(163,191,217,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
+        <div style="background:linear-gradient(135deg, rgba(221,234,246,0.5), rgba(231,243,249,0.5)); padding:14px; border-radius:16px; margin-bottom:14px; border:2px solid rgba(163,191,217,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
           <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">✨ How to Get Started</h3>
           <ol style="margin:0; padding-left:22px; line-height:1.8;">
             <li style="margin:6px 0;">Wait for your teacher to say it is time to open Chromebooks.</li>
@@ -489,30 +502,30 @@
             <li style="margin:6px 0;">Play with <b>quiet voices</b>, <b>kind words</b>, and <b>eyes on your own screen</b>.</li>
             <li style="margin:6px 0;">If you need help or want to switch, <b>raise your hand</b>.</li>
           </ol>
-          <div style="margin-top:12px; padding:10px; background:rgba(255,255,255,0.7); border-radius:10px; font-size:13px;">
+          <div style="margin-top:12px; padding:10px; background:rgba(255,255,255,0.6); border-radius:10px; font-size:13px;">
             💡 <b>Remember:</b> If your game or video stops working, do <i>not</i> click random buttons. Pause, breathe, and ask your teacher for help.
           </div>
         </div>
         
-        <div style="background:linear-gradient(135deg, rgba(205,227,208,0.6), rgba(200,230,201,0.6)); padding:14px; border-radius:16px; border:2px solid rgba(205,227,208,0.6); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
+        <div style="background:linear-gradient(135deg, rgba(205,227,208,0.5), rgba(200,230,201,0.5)); padding:14px; border-radius:16px; border:2px solid rgba(205,227,208,0.5); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
           <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">🎯 Level-Up Challenges</h3>
           <div style="display:grid; gap:8px; margin-top:4px;">
-            <div style="background:rgba(255,255,255,0.7); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
+            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
               <span style="font-size:20px;">🧩</span>
               <span style="flex:1;">Can you finish a game that makes you <b>think hard</b>, not just click fast?</span>
             </div>
-            <div style="background:rgba(255,255,255,0.7); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
+            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
               <span style="font-size:20px;">📖</span>
               <span style="flex:1;">Can you find one activity that uses <b>reading</b> or <b>following directions</b> carefully?</span>
             </div>
-            <div style="background:rgba(255,255,255,0.7); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
+            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
               <span style="font-size:20px;">😊</span>
               <span style="flex:1;">Can you show Fun Friday self-control so we can keep doing this again?</span>
             </div>
           </div>
         </div>
         
-        <div style="margin-top:16px; padding:12px; background:linear-gradient(135deg, rgba(220,207,231,0.35), rgba(255,209,255,0.25)); border-radius:14px; text-align:center;">
+        <div style="margin-top:16px; padding:12px; background:linear-gradient(135deg, rgba(220,207,231,0.3), rgba(255,209,255,0.2)); border-radius:14px; text-align:center;">
           <div class="ascii" style="font-size:16px; color:#5D4E37;">(づ｡◕‿‿◕｡)づ</div>
           <div style="margin-top:6px; font-weight:600; color:#5D4E37;">Have fun, stay on PBS KIDS, and let GoGuardian see your best choices.</div>
         </div>
@@ -538,6 +551,9 @@
       <div class="ascii">GoGuardian is on. We use tech for good. ( •_•)>⌐■-■</div>
     </footer>
   </main>
+
+  <!-- Invisible layer for bubble clicking -->
+  <div id="bubbleClickLayer" style="position:fixed; inset:0; z-index:2; pointer-events:auto;"></div>
 
   <script>
     const phaseOrder = ["Setup", "PBS KIDS Play", "Clean Up"];
@@ -738,3 +754,287 @@
           state.running = remaining > 0;
           state.lastTick = null;
           render();
+          persist(true);
+          if(state.running){
+            scheduleTick();
+          }
+          return;
+        }
+        if(remaining === null){
+          setPhase(idx, { skipPersist: true });
+        } else {
+          setPhase(idx, { keepProgress: true, remaining, skipPersist: true });
+        }
+        state.running = false;
+        state.lastTick = null;
+        render();
+        persist(true);
+      } catch (err) {
+        console.warn("Timer state restore failed, clearing corrupted data", err);
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+          storageUnavailable = false;
+        } catch (removeErr) {
+          console.warn("Cannot clear corrupted storage key", removeErr);
+          storageUnavailable = true;
+        }
+        setPhase(0, { skipPersist: true });
+        state.running = false;
+        state.lastTick = null;
+        render();
+      }
+    }
+    [els.setup, els.work, els.away].forEach((input, index) => {
+      input.addEventListener("change", () => handleDurationChange(index));
+    });
+    els.start.addEventListener("click", () => {
+      if(state.running){
+        return;
+      }
+      state.running = true;
+      state.lastTick = null;
+      persist(true);
+      scheduleTick();
+    });
+    els.pause.addEventListener("click", () => {
+      if(!state.running){
+        return;
+      }
+      state.running = false;
+      state.lastTick = null;
+      stopTick();
+      persist(true);
+    });
+    els.reset.addEventListener("click", () => {
+      state.running = false;
+      state.lastTick = null;
+      stopTick();
+      setPhase(0);
+    });
+    els.next.addEventListener("click", () => {
+      if(state.idx >= phaseOrder.length - 1){
+        state.running = false;
+        state.remaining = 0;
+        state.lastTick = null;
+        stopTick();
+        render();
+        persist(true);
+        return;
+      }
+      const wasRunning = state.running;
+      setPhase(state.idx + 1);
+      state.running = wasRunning;
+      state.lastTick = null;
+      if(wasRunning){
+        scheduleTick();
+      } else {
+        stopTick();
+      }
+    });
+    applySavedState();
+    
+    // Expandable step details
+    document.querySelectorAll('.step-expandable').forEach(step => {
+      step.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') {
+          return;
+        }
+        const details = this.querySelector('.step-details');
+        const isExpanded = this.classList.contains('expanded');
+        if (isExpanded) {
+          details.style.display = 'none';
+          this.classList.remove('expanded');
+        } else {
+          details.style.display = 'block';
+          this.classList.add('expanded');
+        }
+      });
+    });
+  </script>
+  
+  <script>
+    // Floating bubbles animation (visual + pop-on-click)
+    const canvas = document.getElementById('bubbles');
+    const ctx = canvas.getContext('2d');
+    canvas.style.touchAction = 'none';
+    
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    class Bubble {
+      constructor() {
+        this.reset();
+      }
+      
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + Math.random() * 100;
+        this.radius = Math.random() * 40 + 20;
+        this.speed = Math.random() * 1 + 0.5;
+        this.opacity = Math.random() * 0.5 + 0.3;
+        this.wobble = Math.random() * 2;
+        this.wobbleSpeed = Math.random() * 0.02 + 0.01;
+        this.popping = false;
+        this.popFrame = 0;
+      }
+      
+      containsPoint(x, y) {
+        const dx = x - this.x;
+        const dy = y - this.y;
+        return Math.sqrt(dx * dx + dy * dy) <= this.radius;
+      }
+      
+      pop() {
+        if (this.popping) {
+          return;
+        }
+        this.popping = true;
+        this.popFrame = 0;
+      }
+      
+      update() {
+        if (this.popping) {
+          this.popFrame += 1;
+          if (this.popFrame > 12) {
+            this.reset();
+          }
+          return;
+        }
+        this.y -= this.speed;
+        this.wobble += this.wobbleSpeed;
+        this.x += Math.sin(this.wobble) * 0.5;
+        
+        if (this.y + this.radius < 0) {
+          this.reset();
+        }
+      }
+      
+      draw() {
+        const popScale = this.popping ? 1 + this.popFrame * 0.12 : 1;
+        const drawRadius = this.radius * popScale;
+        const alphaScale = this.popping ? Math.max(0, 1 - this.popFrame / 12) : 1;
+        
+        ctx.save();
+        ctx.globalAlpha = alphaScale;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, drawRadius, 0, Math.PI * 2);
+        const gradient = ctx.createRadialGradient(
+          this.x - drawRadius * 0.3, 
+          this.y - drawRadius * 0.3, 
+          0, 
+          this.x, 
+          this.y, 
+          drawRadius
+        );
+        gradient.addColorStop(0, `rgba(255, 255, 255, ${this.opacity * 1.5})`);
+        gradient.addColorStop(0.3, `rgba(220, 207, 231, ${this.opacity * 1.2})`);
+        gradient.addColorStop(0.7, `rgba(163, 191, 217, ${this.opacity * 0.8})`);
+        gradient.addColorStop(1, `rgba(143, 166, 181, ${this.opacity * 0.4})`);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        
+        ctx.strokeStyle = `rgba(143, 166, 181, ${this.opacity * 1.2})`;
+        ctx.lineWidth = this.popping ? 2 : 3;
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+    
+    const bubbles = Array.from({ length: 20 }, () => new Bubble());
+    
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      bubbles.forEach((bubble) => {
+        bubble.update();
+        bubble.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+    
+    const bubbleClickLayer = document.getElementById('bubbleClickLayer');
+    
+    function handlePopEvent(event) {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      
+      let hitBubble = false;
+      for (let i = bubbles.length - 1; i >= 0; i -= 1) {
+        const bubble = bubbles[i];
+        if (!bubble.popping && bubble.containsPoint(x, y)) {
+          bubble.pop();
+          hitBubble = true;
+          event.stopPropagation();
+          event.preventDefault();
+          break;
+        }
+      }
+      
+      // If no bubble was hit, let the click pass through to content below
+      if (!hitBubble) {
+        bubbleClickLayer.style.pointerEvents = 'none';
+        const elementBelow = document.elementFromPoint(event.clientX, event.clientY);
+        bubbleClickLayer.style.pointerEvents = 'auto';
+        if (elementBelow) {
+          elementBelow.click();
+        }
+      }
+    }
+    
+    bubbleClickLayer.addEventListener('pointerdown', handlePopEvent);
+  </script>
+  
+  <!-- Ambient music + toggle -->
+  <audio id="ambientMusic" loop style="display:none;">
+    <source src="" type="audio/mpeg">
+  </audio>
+  
+  <div id="musicToggle" style="position:fixed; bottom:20px; right:20px; z-index:1000;">
+    <button id="toggleBtn" style="background:var(--accent); color:white; border:none; padding:12px 20px; border-radius:50px; cursor:pointer; font-weight:700; box-shadow:0 4px 15px rgba(0,0,0,0.2); transition:all 0.3s ease; display:flex; align-items:center; gap:8px;">
+      <span id="musicIcon">🎵</span>
+      <span id="musicStatus">Relaxed Scene</span>
+    </button>
+    <div id="audioEmbed" style="display:none; position:absolute; bottom:60px; right:0; background:rgba(255,255,255,0.98); backdrop-filter:blur(10px); border-radius:20px; padding:16px; box-shadow:0 8px 30px rgba(0,0,0,0.2); width:600px; max-width:calc(100vw - 40px);">
+      <div style="font-weight:700; margin-bottom:12px; color:var(--ink); font-size:14px;">🎧 Relaxed Scene Audio</div>
+      <iframe src="https://audio.com/embed/audio/1836984009115079?theme=image" style="display:block; border-radius: 12px; border: none; height: 204px; width: 100%;"></iframe>
+      <a href='https://audio.com/befxtv' style="text-align: center; display: block; color: #A4ABB6; font-size: 12px; font-family: sans-serif; line-height: 16px; margin-top: 8px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@befxtv</a>
+    </div>
+  </div>
+  
+  <script>
+    const toggleBtn = document.getElementById('toggleBtn');
+    const audioEmbed = document.getElementById('audioEmbed');
+    const musicIcon = document.getElementById('musicIcon');
+    let isOpen = false;
+    
+    toggleBtn.addEventListener('click', () => {
+      if (isOpen) {
+        audioEmbed.style.display = 'none';
+        musicIcon.textContent = '🎵';
+        toggleBtn.style.background = 'var(--accent)';
+        isOpen = false;
+      } else {
+        audioEmbed.style.display = 'block';
+        musicIcon.textContent = '🎶';
+        toggleBtn.style.background = 'linear-gradient(135deg, var(--sage), var(--lilac))';
+        isOpen = true;
+      }
+    });
+    
+    // Click outside to close
+    document.addEventListener('click', (e) => {
+      if (!document.getElementById('musicToggle').contains(e.target)) {
+        audioEmbed.style.display = 'none';
+        musicIcon.textContent = '🎵';
+        toggleBtn.style.background = 'var(--accent)';
+        isOpen = false;
+      }
+    });
+  </script>
+</body>
+</html>
