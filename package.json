@@ -1,0 +1,14 @@
+{
+  "name": "tech",
+  "version": "1.0.0",
+  "description": "Tech class timer served via Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
