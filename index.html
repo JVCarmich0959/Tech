@@ -2,102 +2,379 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Enhanced viewport for better mobile support including notched devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  
+  <!-- Compatibility meta tags -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  
+  <!-- Theme colors for browser UI -->
+  <meta name="theme-color" content="#DDEAF6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#253038" media="(prefers-color-scheme: dark)" />
+  <meta name="msapplication-TileColor" content="#DDEAF6" />
+  
   <title>Learning.com – PBS KIDS Lab</title>
+  
+  <!-- Preconnect for fonts (if using web fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
   <style>
-    :root{
-      --sage:#CDE3D0; --cream:#FFF9F0; --sky:#DDEAF6; --lilac:#DCCFE7; --ink:#253038; --soft:#F3F3F3; --accent:#7A9CB5; --alert:#FCD5CE; --focus:#E8F4EA;
+    /* ============================================
+       CSS RESET & BASE COMPATIBILITY
+       ============================================ */
+    
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
-    html{height:100%;}
-    body{
-      margin:0; font-family:"Poppins", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-      color:var(--ink);
+    
+    /* Prevent text size adjustment on orientation change (iOS) */
+    html {
+      -webkit-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      height: 100%;
+    }
+    
+    /* ============================================
+       CSS CUSTOM PROPERTIES WITH FALLBACKS
+       ============================================ */
+    
+    :root {
+      --sage: #CDE3D0;
+      --cream: #FFF9F0;
+      --sky: #DDEAF6;
+      --lilac: #DCCFE7;
+      --ink: #253038;
+      --soft: #F3F3F3;
+      --accent: #7A9CB5;
+      --alert: #FCD5CE;
+      --focus: #E8F4EA;
+      
+      /* Safe area insets for notched devices */
+      --safe-area-top: env(safe-area-inset-top, 0px);
+      --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-area-left: env(safe-area-inset-left, 0px);
+      --safe-area-right: env(safe-area-inset-right, 0px);
+    }
+    
+    /* ============================================
+       BODY WITH ENHANCED COMPATIBILITY
+       ============================================ */
+    
+    body {
+      margin: 0;
+      font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #253038; /* Fallback */
+      color: var(--ink);
+      
+      /* Background with fallbacks */
+      background: #DDEAF6; /* Fallback solid color */
+      background: -webkit-linear-gradient(315deg, #DDEAF6, #FFF9F0);
+      background: linear-gradient(135deg, #DDEAF6, #FFF9F0);
       background: linear-gradient(135deg, var(--sky), var(--cream));
       background-size: 200% 200%;
+      
+      /* Animation with vendor prefixes */
+      -webkit-animation: bgGlow 25s ease infinite;
       animation: bgGlow 25s ease infinite;
-      min-height:100vh;
-      box-sizing:border-box;
-      padding:32px 18px;
-      display:flex; align-items:flex-start; justify-content:center;
-      overflow-y:auto;
+      
+      min-height: 100vh;
+      min-height: 100dvh; /* Dynamic viewport height for mobile */
+      
+      /* Padding with safe area support */
+      padding: 32px 18px;
+      padding: calc(32px + var(--safe-area-top)) calc(18px + var(--safe-area-right)) calc(24px + var(--safe-area-bottom)) calc(18px + var(--safe-area-left));
+      
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: start;
+      -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+      align-items: flex-start;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+      
+      /* Prevent pull-to-refresh on mobile */
+      overscroll-behavior-y: contain;
     }
-    @media (max-width: 600px){
-      body{padding:24px 12px;}
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 24px 12px;
+        padding: calc(24px + var(--safe-area-top)) calc(12px + var(--safe-area-right)) calc(16px + var(--safe-area-bottom)) calc(12px + var(--safe-area-left));
+      }
+    }
+    
+    /* Animation keyframes with vendor prefixes */
+    @-webkit-keyframes bgGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
     @keyframes bgGlow {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
-
-    .page{ 
-      width:min(1100px, 92vw); 
-      background:rgba(255,255,255,0.85); 
+    
+    /* ============================================
+       REDUCED MOTION SUPPORT
+       ============================================ */
+    
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        -webkit-animation-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        -webkit-animation-iteration-count: 1 !important;
+        animation-iteration-count: 1 !important;
+        -webkit-transition-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    
+    /* ============================================
+       MAIN PAGE CONTAINER
+       ============================================ */
+    
+    .page {
+      /* Width with fallbacks for min() */
+      width: 92vw;
+      max-width: 1100px;
+      width: min(1100px, 92vw);
+      
+      background: rgba(255, 255, 255, 0.85);
+      
+      /* Backdrop filter with fallbacks */
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
-      border-radius:32px; 
-      box-shadow: 0 25px 70px rgba(0,0,0,.08), 0 0 0 1px rgba(255,255,255,0.6) inset; 
-      padding:32px 32px 24px;
+      
+      /* Fallback for browsers without backdrop-filter */
+      @supports not ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+        background: rgba(255, 255, 255, 0.95);
+      }
+      
+      border-radius: 32px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+      padding: 32px 32px 24px;
+      
+      -webkit-animation: fadeIn 0.8s ease;
       animation: fadeIn 0.8s ease;
     }
+    
+    @-webkit-keyframes fadeIn {
+      from { opacity: 0; -webkit-transform: translateY(20px); transform: translateY(20px); }
+      to { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+    }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; -webkit-transform: translateY(20px); transform: translateY(20px); }
+      to { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
     }
-    .header{display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;}
-    .title{
-      font-weight:800; font-size: clamp(28px, 4vw, 42px);
-      padding:10px 16px; border-radius:18px; background:linear-gradient(90deg,var(--sky),var(--sage));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-      text-shadow: 0 0 30px rgba(122,156,181,0.3);
+    
+    /* ============================================
+       HEADER
+       ============================================ */
+    
+    .header {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      gap: 16px;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
     }
-    .subtitle{font-size:14px; opacity:.8; margin-top:-10px}
-
-    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; margin-top:14px;}
-    @media (max-width: 900px){ .grid{grid-template-columns:1fr;}}
-
-    .card{
-      background: linear-gradient(135deg, rgba(255,255,255,0.95), var(--soft)); 
-      border:1px solid rgba(255,255,255,0.8); 
-      border-radius:22px; 
-      padding:20px; 
-      box-shadow:0 12px 35px rgba(0,0,0,.06);
+    
+    .title {
+      font-weight: 800;
+      /* Font size with fallbacks for clamp() */
+      font-size: 28px;
+      font-size: clamp(28px, 4vw, 42px);
+      padding: 10px 16px;
+      border-radius: 18px;
+      background: -webkit-linear-gradient(left, #DDEAF6, #CDE3D0);
+      background: linear-gradient(90deg, #DDEAF6, #CDE3D0);
+      background: linear-gradient(90deg, var(--sky), var(--sage));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 30px rgba(122, 156, 181, 0.3);
+    }
+    
+    .subtitle {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-top: -10px;
+    }
+    
+    /* ============================================
+       GRID LAYOUT
+       ============================================ */
+    
+    .grid {
+      display: -ms-grid;
+      display: grid;
+      -ms-grid-columns: 1.1fr 18px 0.9fr;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      margin-top: 14px;
+    }
+    
+    @media (max-width: 900px) {
+      .grid {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* ============================================
+       CARDS
+       ============================================ */
+    
+    .card {
+      background: -webkit-linear-gradient(315deg, rgba(255, 255, 255, 0.95), #F3F3F3);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), #F3F3F3);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), var(--soft));
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+      -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    
     .card:hover {
+      -webkit-transform: translateY(-2px);
+      -ms-transform: translateY(-2px);
       transform: translateY(-2px);
-      box-shadow:0 18px 50px rgba(0,0,0,.08);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
     }
-    .card h2{margin:0 0 12px 0; font-size: clamp(18px, 2.2vw, 22px)}
-    .dots{letter-spacing:6px; opacity:.4; animation: pulse 3s ease infinite;}
+    
+    /* Disable hover effects on touch devices */
+    @media (hover: none) and (pointer: coarse) {
+      .card:hover {
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+      }
+    }
+    
+    .card h2 {
+      margin: 0 0 12px 0;
+      font-size: 18px;
+      font-size: clamp(18px, 2.2vw, 22px);
+    }
+    
+    .dots {
+      letter-spacing: 6px;
+      opacity: 0.4;
+      -webkit-animation: pulse 3s ease infinite;
+      animation: pulse 3s ease infinite;
+    }
+    
+    @-webkit-keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.2; }
+    }
     @keyframes pulse {
-      0%, 100% { opacity: .4; }
-      50% { opacity: .2; }
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.2; }
     }
-
-    /* Routine Steps */
-    .steps{display:grid; grid-template-columns: repeat(5, 1fr); gap:10px;}
-    @media (max-width: 900px){ .steps{grid-template-columns: 1fr;} }
-    .step{
-      background: var(--focus); 
-      border:2px dashed var(--accent); 
-      border-radius:16px; 
-      padding:12px;
+    
+    /* ============================================
+       ROUTINE STEPS
+       ============================================ */
+    
+    .steps {
+      display: -ms-grid;
+      display: grid;
+      -ms-grid-columns: 1fr 10px 1fr 10px 1fr 10px 1fr 10px 1fr;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    
+    @media (max-width: 900px) {
+      .steps {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .step {
+      background: #E8F4EA;
+      background: var(--focus);
+      border: 2px dashed #7A9CB5;
+      border: 2px dashed var(--accent);
+      border-radius: 16px;
+      padding: 12px;
+      -webkit-transition: all 0.3s ease;
       transition: all 0.3s ease;
       cursor: pointer;
       position: relative;
       overflow: hidden;
+      
+      /* Better touch handling */
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+      
+      /* Minimum touch target size (44x44 recommended by Apple) */
+      min-height: 44px;
     }
+    
     .step-expandable {
       cursor: pointer;
     }
+    
     .step-expandable.expanded {
+      background: -webkit-linear-gradient(315deg, #F0F7F1, #E5F0E8);
       background: linear-gradient(135deg, #F0F7F1, #E5F0E8);
+      border-color: #CDE3D0;
       border-color: var(--sage);
     }
+    
     .step-brief {
       display: inline;
     }
+    
     .step-details {
+      -webkit-animation: slideDown 0.3s ease;
       animation: slideDown 0.3s ease;
+    }
+    
+    @-webkit-keyframes slideDown {
+      from {
+        opacity: 0;
+        max-height: 0;
+      }
+      to {
+        opacity: 1;
+        max-height: 500px;
+      }
     }
     @keyframes slideDown {
       from {
@@ -109,133 +386,315 @@
         max-height: 500px;
       }
     }
+    
     .step::before {
       content: '';
       position: absolute;
-      top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: -webkit-radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
       opacity: 0;
+      -webkit-transition: opacity 0.3s ease;
       transition: opacity 0.3s ease;
+      pointer-events: none;
     }
+    
     .step:hover {
+      -webkit-transform: translateY(-3px) scale(1.02);
+      -ms-transform: translateY(-3px) scale(1.02);
       transform: translateY(-3px) scale(1.02);
+      background: -webkit-linear-gradient(315deg, #E8F4EA, #DCE9DF);
+      background: linear-gradient(135deg, #E8F4EA, #DCE9DF);
       background: linear-gradient(135deg, var(--focus), #DCE9DF);
-      box-shadow: 0 8px 20px rgba(122,156,181,0.15);
+      box-shadow: 0 8px 20px rgba(122, 156, 181, 0.15);
+      border-color: #CDE3D0;
       border-color: var(--sage);
     }
+    
     .step:hover::before {
       opacity: 1;
     }
-    .step b{display:block; margin-bottom:6px}
-
-    /* Timer */
-    .timer{display:grid; grid-template-columns: 1fr; gap:8px}
-    .timer-display{display:flex; align-items:baseline; gap:12px}
-    .phase{
-      font-weight:700; 
-      padding:8px 16px; 
-      border-radius:999px; 
-      background:var(--sky);
-      box-shadow: 0 4px 12px rgba(122,156,181,0.3);
+    
+    /* Touch device adjustments */
+    @media (hover: none) and (pointer: coarse) {
+      .step:hover {
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none;
+      }
+      
+      .step:active {
+        -webkit-transform: scale(0.98);
+        -ms-transform: scale(0.98);
+        transform: scale(0.98);
+        background: -webkit-linear-gradient(315deg, #E8F4EA, #DCE9DF);
+        background: linear-gradient(135deg, #E8F4EA, #DCE9DF);
+      }
     }
-    .clock{
-      font-variant-numeric: tabular-nums; 
-      font-size: clamp(34px, 6vw, 60px); 
-      font-weight:800; 
-      letter-spacing:1px;
+    
+    .step b {
+      display: block;
+      margin-bottom: 6px;
+    }
+    
+    /* ============================================
+       TIMER
+       ============================================ */
+    
+    .timer {
+      display: -ms-grid;
+      display: grid;
+      -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    
+    .timer-display {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: baseline;
+      -webkit-align-items: baseline;
+      -ms-flex-align: baseline;
+      align-items: baseline;
+      gap: 12px;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+    
+    .phase {
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: #DDEAF6;
+      background: var(--sky);
+      box-shadow: 0 4px 12px rgba(122, 156, 181, 0.3);
+    }
+    
+    .clock {
+      -webkit-font-feature-settings: "tnum";
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+      font-size: 34px;
+      font-size: clamp(34px, 6vw, 60px);
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: -webkit-linear-gradient(315deg, #7A9CB5, #CDE3D0);
+      background: linear-gradient(135deg, #7A9CB5, #CDE3D0);
       background: linear-gradient(135deg, var(--accent), var(--sage));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
-    .progress{
-      height:16px; 
-      background:#e9eef2; 
-      border-radius:999px; 
-      overflow:hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06) inset;
+    
+    .progress {
+      height: 16px;
+      background: #e9eef2;
+      border-radius: 999px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) inset;
     }
-    .bar{
-      height:100%; 
-      width:0%; 
-      background:linear-gradient(90deg, var(--sky), var(--sage)); 
+    
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: -webkit-linear-gradient(left, #DDEAF6, #CDE3D0);
+      background: linear-gradient(90deg, #DDEAF6, #CDE3D0);
+      background: linear-gradient(90deg, var(--sky), var(--sage));
       background-size: 200% 100%;
-      transition:width .2s ease;
+      -webkit-transition: width 0.2s ease;
+      transition: width 0.2s ease;
     }
-    .controls{display:flex; gap:8px; flex-wrap:wrap}
-    .btn{
-      border:0; 
-      padding:11px 16px; 
-      border-radius:14px; 
-      background:var(--accent); 
-      color:#fff; 
-      font-weight:700; 
-      cursor:pointer;
+    
+    .controls {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      gap: 8px;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      border: 0;
+      padding: 11px 16px;
+      border-radius: 14px;
+      background: #7A9CB5;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 12px rgba(122,156,181,0.3);
+      box-shadow: 0 4px 12px rgba(122, 156, 181, 0.3);
+      
+      /* Touch improvements */
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      min-height: 44px;
+      min-width: 44px;
     }
+    
     .btn:hover {
+      -webkit-transform: translateY(-2px);
+      -ms-transform: translateY(-2px);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(122,156,181,0.4);
+      box-shadow: 0 6px 20px rgba(122, 156, 181, 0.4);
     }
+    
     .btn:active {
+      -webkit-transform: translateY(0);
+      -ms-transform: translateY(0);
       transform: translateY(0);
     }
-    .btn.ghost{
-      background:rgba(255,255,255,0.7); 
-      color:var(--ink); 
-      border:2px solid var(--accent);
+    
+    /* Focus states for keyboard navigation */
+    .btn:focus {
+      outline: 3px solid rgba(122, 156, 181, 0.5);
+      outline-offset: 2px;
     }
-
-    .phases{display:grid; grid-template-columns: repeat(3,1fr); gap:10px}
-    .phase-card{
-      background:var(--sky); 
-      border-radius:16px; 
-      padding:12px; 
-      border:1px solid rgba(0,0,0,.05);
+    
+    .btn:focus:not(:focus-visible) {
+      outline: none;
+    }
+    
+    .btn:focus-visible {
+      outline: 3px solid rgba(122, 156, 181, 0.5);
+      outline-offset: 2px;
+    }
+    
+    .btn.ghost {
+      background: rgba(255, 255, 255, 0.7);
+      color: #253038;
+      color: var(--ink);
+      border: 2px solid #7A9CB5;
+      border: 2px solid var(--accent);
+    }
+    
+    .phases {
+      display: -ms-grid;
+      display: grid;
+      -ms-grid-columns: 1fr 10px 1fr 10px 1fr;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    
+    @media (max-width: 600px) {
+      .phases {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .phase-card {
+      background: #DDEAF6;
+      background: var(--sky);
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      -webkit-transition: all 0.3s ease;
       transition: all 0.3s ease;
-      cursor: pointer;
     }
+    
     .phase-card:hover {
+      background: -webkit-linear-gradient(315deg, #DDEAF6, #D0E5F3);
+      background: linear-gradient(135deg, #DDEAF6, #D0E5F3);
       background: linear-gradient(135deg, var(--sky), #D0E5F3);
+      -webkit-transform: scale(1.02);
+      -ms-transform: scale(1.02);
       transform: scale(1.02);
-      box-shadow: 0 6px 18px rgba(221,234,246,0.4);
+      box-shadow: 0 6px 18px rgba(221, 234, 246, 0.4);
     }
-    .phase-card h3{margin:0 0 6px 0; font-size:16px}
-    .phase-card small{opacity:.7}
+    
+    @media (hover: none) and (pointer: coarse) {
+      .phase-card:hover {
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none;
+      }
+    }
+    
+    .phase-card h3 {
+      margin: 0 0 6px 0;
+      font-size: 16px;
+    }
+    
+    .phase-card small {
+      opacity: 0.7;
+    }
+    
     .phase-card input {
+      border: 1px solid #7A9CB5;
       border: 1px solid var(--accent);
       border-radius: 8px;
       padding: 4px 8px;
       font-family: inherit;
+      font-size: 14px;
+      -webkit-transition: all 0.2s ease;
       transition: all 0.2s ease;
+      
+      /* iOS input fixes */
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+      
+      /* Minimum touch target */
+      min-height: 36px;
     }
+    
+    /* Hide number input spinners */
+    .phase-card input::-webkit-inner-spin-button,
+    .phase-card input::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
     .phase-card input:focus {
       outline: none;
+      border-color: #CDE3D0;
       border-color: var(--sage);
-      box-shadow: 0 0 0 3px rgba(205,227,208,0.2);
+      box-shadow: 0 0 0 3px rgba(205, 227, 208, 0.2);
     }
-
-    /* Put-away checklist */
+    
+    /* ============================================
+       CHECKLIST
+       ============================================ */
+    
     .checklist {
       list-style: none;
       padding: 0;
+      margin: 0;
       counter-reset: item;
     }
-    .checklist li{
-      margin:.4rem 0;
+    
+    .checklist li {
+      margin: 0.4rem 0;
       padding: 6px 10px;
+      padding-left: 30px;
       border-radius: 10px;
+      -webkit-transition: all 0.3s ease;
       transition: all 0.3s ease;
       counter-increment: item;
       position: relative;
-      padding-left: 30px;
     }
-    .checklist li:before {
+    
+    .checklist li::before {
       content: counter(item);
       position: absolute;
       left: 10px;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      background: #7A9CB5;
       background: var(--accent);
       color: white;
       font-weight: 700;
@@ -243,67 +702,131 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
       display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
       align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
       justify-content: center;
     }
+    
     .checklist li:hover {
-      background: rgba(122,156,181,0.15);
+      background: rgba(122, 156, 181, 0.15);
+      -webkit-transform: translateX(6px);
+      -ms-transform: translateX(6px);
       transform: translateX(6px);
     }
-
-    /* Cozy footer */
-    .footer{
-      margin-top:16px; 
-      font-size:12px; 
-      opacity:.7; 
-      display:flex; 
-      justify-content:space-between; 
-      align-items:center; 
-      gap:10px; 
-      flex-wrap:wrap;
-      padding: 12px;
-      background: rgba(255,255,255,0.5);
-      border-radius: 16px;
-    }
-    .ascii{
-      white-space:pre; 
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    }
-
-    .guardian-banner{
-      margin-top:14px;
-      padding:10px 14px;
-      border-radius:18px;
-      background:linear-gradient(90deg, var(--sky), #D8EBF5);
-      border:1px solid rgba(0,0,0,0.03);
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-size:13px;
-      line-height:1.5;
-    }
-    .guardian-banner strong{
-      font-weight:800;
-    }
-
-    .rules-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
-      gap:10px;
-      margin-top:10px;
-    }
-    .rule-pill{
-      background:rgba(255,255,255,0.7);
-      border-radius:14px;
-      padding:10px 12px;
-      display:flex;
-      gap:8px;
-      align-items:flex-start;
-      font-size:13px;
+    
+    @media (hover: none) and (pointer: coarse) {
+      .checklist li:hover {
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none;
+        background: transparent;
+      }
     }
     
-    .date-banner{
+    /* ============================================
+       FOOTER
+       ============================================ */
+    
+    .footer {
+      margin-top: 16px;
+      font-size: 12px;
+      opacity: 0.7;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 10px;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 16px;
+    }
+    
+    .ascii {
+      white-space: pre;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    
+    /* ============================================
+       GUARDIAN BANNER
+       ============================================ */
+    
+    .guardian-banner {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 18px;
+      background: -webkit-linear-gradient(left, #DDEAF6, #D8EBF5);
+      background: linear-gradient(90deg, #DDEAF6, #D8EBF5);
+      background: linear-gradient(90deg, var(--sky), #D8EBF5);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .guardian-banner strong {
+      font-weight: 800;
+    }
+    
+    /* ============================================
+       RULES GRID
+       ============================================ */
+    
+    .rules-grid {
+      display: -ms-grid;
+      display: grid;
+      -ms-grid-columns: 1fr 10px 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .rule-pill {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      gap: 8px;
+      -webkit-box-align: start;
+      -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+      align-items: flex-start;
+      font-size: 13px;
+    }
+    
+    .date-banner {
+      background: -webkit-linear-gradient(left, #CDE3D0, #DDEAF6);
+      background: linear-gradient(90deg, #CDE3D0, #DDEAF6);
       background: linear-gradient(90deg, var(--sage), var(--sky));
       padding: 8px 16px;
       border-radius: 12px;
@@ -311,18 +834,91 @@
       font-weight: 600;
       display: inline-block;
     }
+    
+    /* ============================================
+       HIGH CONTRAST MODE SUPPORT
+       ============================================ */
+    
+    @media (prefers-contrast: high) {
+      .card {
+        border: 2px solid #253038;
+      }
+      
+      .btn {
+        border: 2px solid #000;
+      }
+      
+      .step {
+        border-width: 3px;
+      }
+    }
+    
+    /* ============================================
+       PRINT STYLES
+       ============================================ */
+    
+    @media print {
+      body {
+        background: white !important;
+        padding: 20px !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      
+      .page {
+        box-shadow: none !important;
+        width: 100% !important;
+        max-width: none !important;
+      }
+      
+      .controls,
+      .timer {
+        display: none !important;
+      }
+      
+      .card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      
+      a {
+        text-decoration: underline;
+      }
+      
+      .step::before {
+        display: none;
+      }
+    }
+    
+    /* ============================================
+       DARK MODE SUPPORT (OPTIONAL)
+       ============================================ */
+    
+    @media (prefers-color-scheme: dark) {
+      /* Uncomment to enable dark mode
+      :root {
+        --ink: #E8E8E8;
+        --soft: #2A2A2A;
+        --sky: #2D3E4D;
+        --sage: #2D4A3A;
+        --cream: #1A1A1A;
+        --focus: #1E3A2A;
+        --accent: #8AB4D0;
+      }
+      
+      body {
+        background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
+      }
+      
+      .page {
+        background: rgba(30, 30, 30, 0.95);
+      }
+      */
+    }
   </style>
 </head>
 <body>
-  <main class="page" role="main" style="position:relative; z-index:1;">
-    <div style="text-align:center; margin-bottom:20px;">
-      <div class="date-banner">📅 Monday, December 1st, 2025</div>
-      <h1 style="font-size: clamp(36px, 6vw, 64px); font-weight:900; margin:12px 0 0; background:linear-gradient(135deg,#7A9CB5,#5D8AA8,#8FB5C9); -webkit-background-clip:text; background-clip:text; color:transparent;">
-        📚 Learning.com Day 📚
-      </h1>
-      <p style="margin:8px 0 0; font-size:14px; opacity:.85;">Building digital skills, one lesson at a time. 💻</p>
-    </div>
-
+  <main class="page" role="main" style="position: relative; z-index: 1;">
     <header class="header">
       <div>
         <div class="title">Welcome to Tech Class</div>
@@ -333,7 +929,7 @@
 
     <!-- GoGuardian Banner -->
     <div class="guardian-banner" role="status">
-      <span style="font-size:18px;">👀</span>
+      <span style="font-size: 18px;" aria-hidden="true">👀</span>
       <div>
         <strong>Reminder:</strong> This class is monitored with <b>GoGuardian</b>.<br/>
         Your teacher can see your <b>screen</b>, <b>tabs</b>, and <b>activity</b> the whole time. Stay focused on Learning.com.
@@ -343,48 +939,48 @@
     <section class="grid" aria-label="main layout">
       <!-- Left Column -->
       <div class="card">
-        <h2>📋 Learning.com Startup Routine <span class="dots">· · ·</span></h2>
-        <div class="steps" aria-label="routine steps">
-          <div class="step step-expandable" data-step="1">
-            <b>🖥 Step 1 – Get Ready</b> 
+        <h2>📋 Learning.com Startup Routine <span class="dots" aria-hidden="true">· · ·</span></h2>
+        <div class="steps" role="list" aria-label="routine steps">
+          <div class="step step-expandable" data-step="1" role="listitem" tabindex="0" aria-expanded="false">
+            <b>🖥 Step 1 – Get Ready</b>
             <div class="step-brief">Grab YOUR Chromebook and find your seat</div>
-            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(122,156,181,0.3); font-size:13px; line-height:1.5;">
+            <div class="step-details" style="display: none; margin-top: 10px; padding-top: 10px; border-top: 2px dashed rgba(122, 156, 181, 0.3); font-size: 13px; line-height: 1.5;">
               <p><b>🔢 Check the number:</b> Take only the Chromebook that matches your number.</p>
               <p><b>✋ Two hands:</b> Carry it carefully with two hands, screen closed.</p>
               <p><b>🪑 Sit first:</b> Sit in your assigned spot before you open it.</p>
             </div>
           </div>
-          <div class="step step-expandable" data-step="2">
-            <b>🌐 Step 2 – Log In</b> 
+          <div class="step step-expandable" data-step="2" role="listitem" tabindex="0" aria-expanded="false">
+            <b>🌐 Step 2 – Log In</b>
             <div class="step-brief">Wait for your teacher, then open Learning.com</div>
-            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(122,156,181,0.3); font-size:13px; line-height:1.5;">
+            <div class="step-details" style="display: none; margin-top: 10px; padding-top: 10px; border-top: 2px dashed rgba(122, 156, 181, 0.3); font-size: 13px; line-height: 1.5;">
               <p><b>⏳ Wait for directions:</b> Do not open any tabs until your teacher says "Go."</p>
-              <p><b>🌐 Visit:</b> Go to <code style="background:rgba(122,156,181,0.2); padding:2px 6px; border-radius:4px;">learning.com</code> and sign in with your school account.</p>
+              <p><b>🌐 Visit:</b> Go to <code style="background: rgba(122, 156, 181, 0.2); padding: 2px 6px; border-radius: 4px;">learning.com</code> and sign in with your school account.</p>
               <p><b>🔑 Password help:</b> If you forgot your password, raise your hand quietly.</p>
             </div>
           </div>
-          <div class="step step-expandable" data-step="3">
-            <b>📖 Step 3 – Find Your Lesson</b> 
+          <div class="step step-expandable" data-step="3" role="listitem" tabindex="0" aria-expanded="false">
+            <b>📖 Step 3 – Find Your Lesson</b>
             <div class="step-brief">Open the assigned lesson from your teacher</div>
-            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(122,156,181,0.3); font-size:13px; line-height:1.5;">
+            <div class="step-details" style="display: none; margin-top: 10px; padding-top: 10px; border-top: 2px dashed rgba(122, 156, 181, 0.3); font-size: 13px; line-height: 1.5;">
               <p><b>📋 Check the board:</b> Look for the lesson name or number your teacher has posted.</p>
               <p><b>▶️ Start where you left off:</b> If continuing from last time, find your place.</p>
               <p><b>🙋 Ask first:</b> If you can't find the lesson, raise your hand—don't click around randomly.</p>
             </div>
           </div>
-          <div class="step step-expandable" data-step="4">
-            <b>🤫 Step 4 – Work Quietly</b> 
+          <div class="step step-expandable" data-step="4" role="listitem" tabindex="0" aria-expanded="false">
+            <b>🤫 Step 4 – Work Quietly</b>
             <div class="step-brief">Quiet voices • Eyes on your screen • Do your best</div>
-            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(122,156,181,0.3); font-size:13px; line-height:1.5;">
+            <div class="step-details" style="display: none; margin-top: 10px; padding-top: 10px; border-top: 2px dashed rgba(122, 156, 181, 0.3); font-size: 13px; line-height: 1.5;">
               <p><b>🔊 Volume check:</b> Headphones on, volume at a respectful level.</p>
               <p><b>🧠 Focus:</b> Read carefully and try your best on each question.</p>
               <p><b>❌ No rushing:</b> It's not a race—take your time to understand.</p>
             </div>
           </div>
-          <div class="step step-expandable" data-step="5">
-            <b>✋ Step 5 – Ask for Help</b> 
+          <div class="step step-expandable" data-step="5" role="listitem" tabindex="0" aria-expanded="false">
+            <b>✋ Step 5 – Ask for Help</b>
             <div class="step-brief">Stuck? Raise your hand—don't guess randomly</div>
-            <div class="step-details" style="display:none; margin-top:10px; padding-top:10px; border-top:2px dashed rgba(122,156,181,0.3); font-size:13px; line-height:1.5;">
+            <div class="step-details" style="display: none; margin-top: 10px; padding-top: 10px; border-top: 2px dashed rgba(122, 156, 181, 0.3); font-size: 13px; line-height: 1.5;">
               <p><b>🤔 Try first:</b> Re-read the question and try once before asking for help.</p>
               <p><b>🙋 Raise your hand:</b> Wait quietly for your teacher to come to you.</p>
               <p><b>🚫 No clicking around:</b> Don't open other tabs or websites while waiting.</p>
@@ -399,57 +995,59 @@
         <div class="timer" id="timer">
           <div class="timer-display">
             <div class="phase" id="phaseLabel" aria-live="polite">Setup</div>
-            <div class="clock" id="clock" aria-live="polite">05:00</div>
+            <div class="clock" id="clock" aria-live="polite" aria-atomic="true">05:00</div>
           </div>
-          <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
-          <div class="phases" style="margin-top:6px">
+          <div class="progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Timer progress">
+            <div class="bar" id="bar"></div>
+          </div>
+          <div class="phases" style="margin-top: 6px;">
             <div class="phase-card">
               <h3>Setup</h3>
               <small>Log in • Find your lesson</small>
-              <div style="margin-top:6px">
-                <label>Min: <input type="number" id="setupMin" min="1" max="30" value="5" style="width:60px"></label>
+              <div style="margin-top: 6px;">
+                <label>Min: <input type="number" id="setupMin" min="1" max="30" value="5" style="width: 60px;" inputmode="numeric" pattern="[0-9]*" aria-label="Setup minutes"></label>
               </div>
             </div>
             <div class="phase-card">
               <h3>Work Time</h3>
               <small>Learning.com lessons • Focus mode</small>
-              <div style="margin-top:6px">
-                <label>Min: <input type="number" id="workMin" min="1" max="90" value="30" style="width:60px"></label>
+              <div style="margin-top: 6px;">
+                <label>Min: <input type="number" id="workMin" min="1" max="90" value="30" style="width: 60px;" inputmode="numeric" pattern="[0-9]*" aria-label="Work time minutes"></label>
               </div>
             </div>
             <div class="phase-card">
               <h3>Clean Up</h3>
               <small>Log out • Close lid • Return & plug in</small>
-              <div style="margin-top:6px">
-                <label>Min: <input type="number" id="awayMin" min="1" max="20" value="5" style="width:60px"></label>
+              <div style="margin-top: 6px;">
+                <label>Min: <input type="number" id="awayMin" min="1" max="20" value="5" style="width: 60px;" inputmode="numeric" pattern="[0-9]*" aria-label="Clean up minutes"></label>
               </div>
             </div>
           </div>
-          <div class="controls" style="margin-top:10px">
-            <button class="btn" id="startBtn">Start</button>
-            <button class="btn ghost" id="pauseBtn">Pause</button>
-            <button class="btn ghost" id="resetBtn">Reset</button>
-            <button class="btn ghost" id="nextBtn">Next Phase</button>
+          <div class="controls" style="margin-top: 10px;">
+            <button class="btn" id="startBtn" type="button" aria-label="Start timer">Start</button>
+            <button class="btn ghost" id="pauseBtn" type="button" aria-label="Pause timer">Pause</button>
+            <button class="btn ghost" id="resetBtn" type="button" aria-label="Reset timer">Reset</button>
+            <button class="btn ghost" id="nextBtn" type="button" aria-label="Skip to next phase">Next Phase</button>
           </div>
         </div>
 
-        <div style="margin-top:14px; padding:10px 12px; border-radius:16px; background:rgba(232,244,234,0.7); font-size:13px;">
+        <div style="margin-top: 14px; padding: 10px 12px; border-radius: 16px; background: rgba(232, 244, 234, 0.7); font-size: 13px;">
           <strong>Learning.com Expectations</strong>
           <div class="rules-grid">
             <div class="rule-pill">
-              <span>🎯</span>
+              <span aria-hidden="true">🎯</span>
               <span><b>Stay on task:</b> Only Learning.com—no other websites.</span>
             </div>
             <div class="rule-pill">
-              <span>👀</span>
+              <span aria-hidden="true">👀</span>
               <span><b>GoGuardian:</b> Your teacher sees your screen at all times.</span>
             </div>
             <div class="rule-pill">
-              <span>📖</span>
+              <span aria-hidden="true">📖</span>
               <span><b>Read carefully:</b> Take your time on each question.</span>
             </div>
             <div class="rule-pill">
-              <span>🙋</span>
+              <span aria-hidden="true">🙋</span>
               <span><b>Need help?</b> Raise your hand and wait quietly.</span>
             </div>
           </div>
@@ -459,49 +1057,49 @@
       <!-- Today's Focus -->
       <div class="card">
         <h2>📚 Today's Learning Focus</h2>
-        <div style="background:linear-gradient(135deg, rgba(232,244,234,0.6), rgba(220,234,228,0.6)); padding:16px; border-radius:18px; margin-bottom:14px; border:2px solid rgba(205,227,208,0.4); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
-          <div class="ascii" style="font-size:16px; margin-bottom:10px; color:#5D4E37;">(•‿•) Good morning, Scholars!</div>
-          <p style="margin:8px 0; line-height:1.6;">
-            Today we're building our <b style="color:#5D8AA8;">digital citizenship</b> and <b style="color:#5D8AA8;">technology skills</b> with Learning.com.  
+        <div style="background: linear-gradient(135deg, rgba(232, 244, 234, 0.6), rgba(220, 234, 228, 0.6)); padding: 16px; border-radius: 18px; margin-bottom: 14px; border: 2px solid rgba(205, 227, 208, 0.4); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);">
+          <div class="ascii" style="font-size: 16px; margin-bottom: 10px; color: #5D4E37;">(•‿•) Good morning, Scholars!</div>
+          <p style="margin: 8px 0; line-height: 1.6;">
+            Today we're building our <b style="color: #5D8AA8;">digital citizenship</b> and <b style="color: #5D8AA8;">technology skills</b> with Learning.com.
             These lessons help you become a smarter, safer, and more skilled computer user.
           </p>
         </div>
-        
-        <div style="background:linear-gradient(135deg, rgba(221,234,246,0.5), rgba(231,243,249,0.5)); padding:14px; border-radius:16px; margin-bottom:14px; border:2px solid rgba(163,191,217,0.3); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
-          <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">✅ How to Succeed Today</h3>
-          <ol style="margin:0; padding-left:22px; line-height:1.8;">
-            <li style="margin:6px 0;">Log in with your <b>school account</b> (ask if you need help).</li>
-            <li style="margin:6px 0;">Find the <b>assigned lesson</b> posted by your teacher.</li>
-            <li style="margin:6px 0;"><b>Read each question carefully</b>—don't rush through.</li>
-            <li style="margin:6px 0;">If stuck, <b>try once more</b>, then raise your hand for help.</li>
-            <li style="margin:6px 0;">When finished, <b>raise your hand</b> to check in with your teacher.</li>
+
+        <div style="background: linear-gradient(135deg, rgba(221, 234, 246, 0.5), rgba(231, 243, 249, 0.5)); padding: 14px; border-radius: 16px; margin-bottom: 14px; border: 2px solid rgba(163, 191, 217, 0.3); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);">
+          <h3 style="margin: 0 0 10px 0; font-size: 17px; color: #5D4E37;">✅ How to Succeed Today</h3>
+          <ol style="margin: 0; padding-left: 22px; line-height: 1.8;">
+            <li style="margin: 6px 0;">Log in with your <b>school account</b> (ask if you need help).</li>
+            <li style="margin: 6px 0;">Find the <b>assigned lesson</b> posted by your teacher.</li>
+            <li style="margin: 6px 0;"><b>Read each question carefully</b>—don't rush through.</li>
+            <li style="margin: 6px 0;">If stuck, <b>try once more</b>, then raise your hand for help.</li>
+            <li style="margin: 6px 0;">When finished, <b>raise your hand</b> to check in with your teacher.</li>
           </ol>
-          <div style="margin-top:12px; padding:10px; background:rgba(255,255,255,0.6); border-radius:10px; font-size:13px;">
+          <div style="margin-top: 12px; padding: 10px; background: rgba(255, 255, 255, 0.6); border-radius: 10px; font-size: 13px;">
             💡 <b>Tip:</b> Your progress is saved automatically. If something freezes, don't panic—raise your hand.
           </div>
         </div>
-        
-        <div style="background:linear-gradient(135deg, rgba(252,213,206,0.3), rgba(255,229,217,0.3)); padding:14px; border-radius:16px; border:2px solid rgba(252,213,206,0.4); box-shadow:0 4px 12px rgba(0,0,0,0.04);">
-          <h3 style="margin:0 0 10px 0; font-size:17px; color:#5D4E37;">⚠️ Common Mistakes to Avoid</h3>
-          <div style="display:grid; gap:8px; margin-top:4px;">
-            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
-              <span style="font-size:20px;">🚫</span>
-              <span style="flex:1;"><b>Clicking randomly</b> when you don't know the answer—try reading again first.</span>
+
+        <div style="background: linear-gradient(135deg, rgba(252, 213, 206, 0.3), rgba(255, 229, 217, 0.3)); padding: 14px; border-radius: 16px; border: 2px solid rgba(252, 213, 206, 0.4); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);">
+          <h3 style="margin: 0 0 10px 0; font-size: 17px; color: #5D4E37;">⚠️ Common Mistakes to Avoid</h3>
+          <div style="display: grid; gap: 8px; margin-top: 4px;">
+            <div style="background: rgba(255, 255, 255, 0.6); padding: 10px 12px; border-radius: 12px; display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 20px;" aria-hidden="true">🚫</span>
+              <span style="flex: 1;"><b>Clicking randomly</b> when you don't know the answer—try reading again first.</span>
             </div>
-            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
-              <span style="font-size:20px;">🚫</span>
-              <span style="flex:1;"><b>Opening other tabs</b> while waiting—your teacher can see everything.</span>
+            <div style="background: rgba(255, 255, 255, 0.6); padding: 10px 12px; border-radius: 12px; display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 20px;" aria-hidden="true">🚫</span>
+              <span style="flex: 1;"><b>Opening other tabs</b> while waiting—your teacher can see everything.</span>
             </div>
-            <div style="background:rgba(255,255,255,0.6); padding:10px 12px; border-radius:12px; display:flex; align-items:center; gap:10px;">
-              <span style="font-size:20px;">🚫</span>
-              <span style="flex:1;"><b>Rushing to finish first</b>—this is about learning, not speed.</span>
+            <div style="background: rgba(255, 255, 255, 0.6); padding: 10px 12px; border-radius: 12px; display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 20px;" aria-hidden="true">🚫</span>
+              <span style="flex: 1;"><b>Rushing to finish first</b>—this is about learning, not speed.</span>
             </div>
           </div>
         </div>
-        
-        <div style="margin-top:16px; padding:12px; background:linear-gradient(135deg, rgba(221,234,246,0.4), rgba(205,227,208,0.3)); border-radius:14px; text-align:center;">
-          <div style="font-size:24px;">📖➡️🧠➡️💪</div>
-          <div style="margin-top:6px; font-weight:600; color:#5D4E37;">Read carefully. Think it through. Build your skills.</div>
+
+        <div style="margin-top: 16px; padding: 12px; background: linear-gradient(135deg, rgba(221, 234, 246, 0.4), rgba(205, 227, 208, 0.3)); border-radius: 14px; text-align: center;">
+          <div style="font-size: 24px;" aria-hidden="true">📖➡️🧠➡️💪</div>
+          <div style="margin-top: 6px; font-weight: 600; color: #5D4E37;">Read carefully. Think it through. Build your skills.</div>
         </div>
       </div>
 
@@ -517,7 +1115,7 @@
           <li><b>Plug in</b> the charger and make sure the charging light turns on.</li>
           <li>Push cords back neatly so they are ready for the next class.</li>
         </ol>
-        <div class="ascii" style="margin-top:6px">( •_•)و ̑̑  A tidy cart means we're ready for next time.</div>
+        <div class="ascii" style="margin-top: 6px;">( •_•)و ̑̑  A tidy cart means we're ready for next time.</div>
       </div>
     </section>
 
@@ -528,128 +1126,196 @@
   </main>
 
   <script>
-    const phaseOrder = ["Setup", "Work Time", "Clean Up"];
-    const STORAGE_KEY = "tech-class-timer";
-    const defaults = [5, 30, 5];
-    const els = {
+    // Feature detection and polyfills
+    (function() {
+      'use strict';
+      
+      // Check for requestAnimationFrame (IE9 fallback)
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame ||
+          window.msRequestAnimationFrame ||
+          function(callback) {
+            return window.setTimeout(callback, 1000 / 60);
+          };
+      }
+      
+      if (!window.cancelAnimationFrame) {
+        window.cancelAnimationFrame = window.webkitCancelAnimationFrame ||
+          window.mozCancelAnimationFrame ||
+          window.msCancelAnimationFrame ||
+          function(id) {
+            window.clearTimeout(id);
+          };
+      }
+      
+      // Performance.now polyfill
+      if (!window.performance) {
+        window.performance = {};
+      }
+      if (!window.performance.now) {
+        var startTime = Date.now();
+        window.performance.now = function() {
+          return Date.now() - startTime;
+        };
+      }
+    })();
+    
+    var phaseOrder = ["Setup", "Work Time", "Clean Up"];
+    var STORAGE_KEY = "tech-class-timer";
+    var defaults = [5, 30, 5];
+    
+    var els = {
       clock: document.getElementById("clock"),
       bar: document.getElementById("bar"),
       phase: document.getElementById("phaseLabel"),
+      progress: document.querySelector('.progress'),
       setup: document.getElementById("setupMin"),
       work: document.getElementById("workMin"),
       away: document.getElementById("awayMin"),
       start: document.getElementById("startBtn"),
       pause: document.getElementById("pauseBtn"),
       reset: document.getElementById("resetBtn"),
-      next: document.getElementById("nextBtn"),
+      next: document.getElementById("nextBtn")
     };
-    const state = {
+    
+    var state = {
       idx: 0,
       remaining: 0,
       duration: 0,
       running: false,
-      lastTick: null,
+      lastTick: null
     };
-    let rafId = null;
-    let lastPersist = 0;
-    let storageUnavailable = false;
-    function clampFromInput(input, fallback){
-      const min = Number(input.min) || 1;
-      const max = Number(input.max) || 999;
-      let value = parseInt(input.value, 10);
-      if(Number.isNaN(value)){ value = fallback; }
+    
+    var rafId = null;
+    var lastPersist = 0;
+    var storageUnavailable = false;
+    
+    // Test localStorage availability
+    function isLocalStorageAvailable() {
+      try {
+        var test = '__storage_test__';
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+    
+    storageUnavailable = !isLocalStorageAvailable();
+    
+    function clampFromInput(input, fallback) {
+      var min = Number(input.min) || 1;
+      var max = Number(input.max) || 999;
+      var value = parseInt(input.value, 10);
+      if (isNaN(value)) { value = fallback; }
       value = Math.min(max, Math.max(min, value));
-      if(String(value) !== String(input.value)){ input.value = value; }
+      if (String(value) !== String(input.value)) { input.value = value; }
       return value;
     }
-    function getMinutesForIndex(index){
-      if(index === 0){ return clampFromInput(els.setup, defaults[0]); }
-      if(index === 1){ return clampFromInput(els.work, defaults[1]); }
+    
+    function getMinutesForIndex(index) {
+      if (index === 0) { return clampFromInput(els.setup, defaults[0]); }
+      if (index === 1) { return clampFromInput(els.work, defaults[1]); }
       return clampFromInput(els.away, defaults[2]);
     }
-    function format(t){
-      const total = Math.max(0, Math.floor(t));
-      const m = Math.floor(total / 60);
-      const s = total % 60;
-      return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    
+    function format(t) {
+      var total = Math.max(0, Math.floor(t));
+      var m = Math.floor(total / 60);
+      var s = total % 60;
+      return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
     }
-    function render(){
+    
+    function render() {
       els.clock.textContent = format(state.remaining);
-      const pct = state.duration > 0 ? 100 * (1 - state.remaining / state.duration) : 0;
-      const safePct = Math.min(100, Math.max(0, pct));
-      els.bar.style.width = `${safePct}%`;
+      var pct = state.duration > 0 ? 100 * (1 - state.remaining / state.duration) : 0;
+      var safePct = Math.min(100, Math.max(0, pct));
+      els.bar.style.width = safePct + '%';
+      
+      // Update ARIA progress
+      if (els.progress) {
+        els.progress.setAttribute('aria-valuenow', Math.round(safePct));
+      }
     }
-    function persist(force = false){
-      if(storageUnavailable){
+    
+    function persist(force) {
+      if (storageUnavailable) {
         return;
       }
-      const now = performance.now();
-      if(state.running && !force && now - lastPersist < 1000){
+      var now = performance.now();
+      if (state.running && !force && now - lastPersist < 1000) {
         return;
       }
       lastPersist = now;
-      const payload = {
+      var payload = {
         idx: state.idx,
         remaining: Math.max(0, state.remaining),
         running: state.running,
         durations: {
           setup: getMinutesForIndex(0),
           work: getMinutesForIndex(1),
-          away: getMinutesForIndex(2),
+          away: getMinutesForIndex(2)
         },
-        savedAt: Date.now(),
+        savedAt: Date.now()
       };
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
       } catch (err) {
-        if(!storageUnavailable){
+        if (!storageUnavailable) {
           storageUnavailable = true;
           console.warn("Unable to persist timer state", err);
         }
       }
     }
-    function setPhase(index, opts = {}){
-      const clamped = Math.max(0, Math.min(phaseOrder.length - 1, index));
+    
+    function setPhase(index, opts) {
+      opts = opts || {};
+      var clamped = Math.max(0, Math.min(phaseOrder.length - 1, index));
       state.idx = clamped;
       els.phase.textContent = phaseOrder[clamped];
-      const mins = getMinutesForIndex(clamped);
+      var mins = getMinutesForIndex(clamped);
       state.duration = mins * 60;
-      if(opts.keepProgress && typeof opts.remaining === "number"){
+      if (opts.keepProgress && typeof opts.remaining === "number") {
         state.remaining = Math.min(state.duration, Math.max(0, opts.remaining));
       } else {
         state.remaining = state.duration;
       }
       state.lastTick = null;
       render();
-      if(!opts.skipPersist){
+      if (!opts.skipPersist) {
         persist(true);
       }
     }
-    function scheduleTick(){
-      if(rafId === null){
+    
+    function scheduleTick() {
+      if (rafId === null) {
         rafId = requestAnimationFrame(tick);
       }
     }
-    function stopTick(){
-      if(rafId !== null){
+    
+    function stopTick() {
+      if (rafId !== null) {
         cancelAnimationFrame(rafId);
         rafId = null;
       }
     }
-    function tick(ts){
+    
+    function tick(ts) {
       rafId = null;
-      if(!state.running){
+      if (!state.running) {
         return;
       }
-      if(state.lastTick === null){
+      if (state.lastTick === null) {
         state.lastTick = ts;
       }
-      const dt = (ts - state.lastTick) / 1000;
+      var dt = (ts - state.lastTick) / 1000;
       state.lastTick = ts;
       state.remaining = Math.max(0, state.remaining - dt);
-      if(state.remaining <= 0.01){
-        const next = state.idx + 1;
-        if(next < phaseOrder.length){
+      if (state.remaining <= 0.01) {
+        var next = state.idx + 1;
+        if (next < phaseOrder.length) {
           setPhase(next, { skipPersist: true });
           state.lastTick = ts;
         } else {
@@ -664,9 +1330,10 @@
       persist();
       scheduleTick();
     }
-    function handleDurationChange(index){
-      const minutes = getMinutesForIndex(index);
-      if(state.idx === index){
+    
+    function handleDurationChange(index) {
+      var minutes = getMinutesForIndex(index);
+      if (state.idx === index) {
         state.duration = minutes * 60;
         state.remaining = state.running ? Math.min(state.remaining, state.duration) : state.duration;
         state.lastTick = null;
@@ -674,46 +1341,49 @@
       }
       persist(true);
     }
-    function applySavedState(){
+    
+    function applySavedState() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if(!raw){
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
           setPhase(0);
           return;
         }
-        const saved = JSON.parse(raw);
-        if(saved?.durations){
-          if(saved.durations.setup){ els.setup.value = saved.durations.setup; }
-          if(saved.durations.work){ els.work.value = saved.durations.work; }
-          if(saved.durations.away){ els.away.value = saved.durations.away; }
+        var saved = JSON.parse(raw);
+        if (saved && saved.durations) {
+          if (saved.durations.setup) { els.setup.value = saved.durations.setup; }
+          if (saved.durations.work) { els.work.value = saved.durations.work; }
+          if (saved.durations.away) { els.away.value = saved.durations.away; }
         }
-        const savedIdx = Number.isInteger(saved?.idx) ? Math.max(0, Math.min(phaseOrder.length - 1, saved.idx)) : 0;
-        let remaining = typeof saved?.remaining === "number" ? saved.remaining : null;
-        const savedRunning = Boolean(saved?.running);
-        const savedAt = typeof saved?.savedAt === "number" ? saved.savedAt : null;
-        const durationsSec = [
+        var savedIdx = (typeof saved.idx === 'number' && !isNaN(saved.idx)) 
+          ? Math.max(0, Math.min(phaseOrder.length - 1, saved.idx)) 
+          : 0;
+        var remaining = (typeof saved.remaining === "number") ? saved.remaining : null;
+        var savedRunning = Boolean(saved.running);
+        var savedAt = (typeof saved.savedAt === "number") ? saved.savedAt : null;
+        var durationsSec = [
           getMinutesForIndex(0) * 60,
           getMinutesForIndex(1) * 60,
-          getMinutesForIndex(2) * 60,
+          getMinutesForIndex(2) * 60
         ];
-        let idx = savedIdx;
-        if(savedRunning && remaining !== null){
-          let elapsed = savedAt ? Math.max(0, (Date.now() - savedAt) / 1000) : 0;
-          while(elapsed > 0 && idx < phaseOrder.length){
-            if(remaining > elapsed){
+        var idx = savedIdx;
+        if (savedRunning && remaining !== null) {
+          var elapsed = savedAt ? Math.max(0, (Date.now() - savedAt) / 1000) : 0;
+          while (elapsed > 0 && idx < phaseOrder.length) {
+            if (remaining > elapsed) {
               remaining -= elapsed;
               elapsed = 0;
             } else {
               elapsed -= remaining;
               idx += 1;
-              if(idx >= phaseOrder.length){
+              if (idx >= phaseOrder.length) {
                 remaining = 0;
                 break;
               }
               remaining = durationsSec[idx];
             }
           }
-          if(idx >= phaseOrder.length){
+          if (idx >= phaseOrder.length) {
             idx = phaseOrder.length - 1;
             setPhase(idx, { keepProgress: true, remaining: 0, skipPersist: true });
             state.running = false;
@@ -722,20 +1392,20 @@
             persist(true);
             return;
           }
-          setPhase(idx, { keepProgress: true, remaining, skipPersist: true });
+          setPhase(idx, { keepProgress: true, remaining: remaining, skipPersist: true });
           state.running = remaining > 0;
           state.lastTick = null;
           render();
           persist(true);
-          if(state.running){
+          if (state.running) {
             scheduleTick();
           }
           return;
         }
-        if(remaining === null){
+        if (remaining === null) {
           setPhase(idx, { skipPersist: true });
         } else {
-          setPhase(idx, { keepProgress: true, remaining, skipPersist: true });
+          setPhase(idx, { keepProgress: true, remaining: remaining, skipPersist: true });
         }
         state.running = false;
         state.lastTick = null;
@@ -756,70 +1426,107 @@
         render();
       }
     }
-    [els.setup, els.work, els.away].forEach((input, index) => {
-      input.addEventListener("change", () => handleDurationChange(index));
-    });
-    els.start.addEventListener("click", () => {
-      if(state.running){
-        return;
-      }
-      state.running = true;
-      state.lastTick = null;
-      persist(true);
-      scheduleTick();
-    });
-    els.pause.addEventListener("click", () => {
-      if(!state.running){
-        return;
-      }
-      state.running = false;
-      state.lastTick = null;
-      stopTick();
-      persist(true);
-    });
-    els.reset.addEventListener("click", () => {
-      state.running = false;
-      state.lastTick = null;
-      stopTick();
-      setPhase(0);
-    });
-    els.next.addEventListener("click", () => {
-      if(state.idx >= phaseOrder.length - 1){
+    
+    // Event listeners with both mouse and touch support
+    function addEventListeners() {
+      [els.setup, els.work, els.away].forEach(function(input, index) {
+        input.addEventListener("change", function() { handleDurationChange(index); });
+        // Handle blur for mobile keyboards
+        input.addEventListener("blur", function() { handleDurationChange(index); });
+      });
+      
+      els.start.addEventListener("click", function() {
+        if (state.running) { return; }
+        state.running = true;
+        state.lastTick = null;
+        persist(true);
+        scheduleTick();
+      });
+      
+      els.pause.addEventListener("click", function() {
+        if (!state.running) { return; }
         state.running = false;
-        state.remaining = 0;
         state.lastTick = null;
         stopTick();
-        render();
         persist(true);
-        return;
-      }
-      const wasRunning = state.running;
-      setPhase(state.idx + 1);
-      state.running = wasRunning;
-      state.lastTick = null;
-      if(wasRunning){
-        scheduleTick();
-      } else {
+      });
+      
+      els.reset.addEventListener("click", function() {
+        state.running = false;
+        state.lastTick = null;
         stopTick();
-      }
-    });
-    applySavedState();
-    
-    // Expandable step details
-    document.querySelectorAll('.step-expandable').forEach(step => {
-      step.addEventListener('click', function(e) {
-        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') {
+        setPhase(0);
+      });
+      
+      els.next.addEventListener("click", function() {
+        if (state.idx >= phaseOrder.length - 1) {
+          state.running = false;
+          state.remaining = 0;
+          state.lastTick = null;
+          stopTick();
+          render();
+          persist(true);
           return;
         }
-        const details = this.querySelector('.step-details');
-        const isExpanded = this.classList.contains('expanded');
+        var wasRunning = state.running;
+        setPhase(state.idx + 1);
+        state.running = wasRunning;
+        state.lastTick = null;
+        if (wasRunning) {
+          scheduleTick();
+        } else {
+          stopTick();
+        }
+      });
+    }
+    
+    addEventListeners();
+    applySavedState();
+    
+    // Expandable step details with keyboard support
+    document.querySelectorAll('.step-expandable').forEach(function(step) {
+      function toggleStep(e) {
+        // Don't toggle if clicking on interactive elements
+        if (e && e.target && (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT')) {
+          return;
+        }
+        var details = step.querySelector('.step-details');
+        var isExpanded = step.classList.contains('expanded');
         if (isExpanded) {
           details.style.display = 'none';
-          this.classList.remove('expanded');
+          step.classList.remove('expanded');
+          step.setAttribute('aria-expanded', 'false');
         } else {
           details.style.display = 'block';
-          this.classList.add('expanded');
+          step.classList.add('expanded');
+          step.setAttribute('aria-expanded', 'true');
         }
+      }
+      
+      step.addEventListener('click', toggleStep);
+      
+      // Keyboard support
+      step.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleStep(e);
+        }
+      });
+    });
+    
+    // Handle visibility change (pause timer when tab is hidden on mobile)
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden && state.running) {
+        // Timer continues but we update lastTick when visible again
+        state.lastTick = null;
+      }
+    });
+    
+    // Prevent double-tap zoom on buttons (iOS)
+    document.querySelectorAll('.btn').forEach(function(btn) {
+      btn.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        btn.click();
       });
     });
   </script>
